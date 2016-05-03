@@ -5,7 +5,7 @@ import {createStore} from 'redux';
 import {renderBlock, getBlockReducer} from './blocks';
 
 
-export function init(element, schema) {
+export function init(element, schema, minNum=null, maxNum=null) {
     function reducer(state=null, action) {
         if (action.type === 'SET_INITIAL_STATE') {
             return action.state;
@@ -14,6 +14,8 @@ export function init(element, schema) {
         if (action.path) {
             let pathComponents = action.path.split('-');
             let fieldName = pathComponents.shift();
+
+            console.log(action.path);
 
             let newAction = Object.assign({}, action, {
                 pathComponents,
@@ -25,6 +27,9 @@ export function init(element, schema) {
 
         return state;
     }
+
+    schema.minNum = minNum;
+    schema.maxNum = maxNum;
 
     let store = createStore(reducer);
 
@@ -39,6 +44,7 @@ export function init(element, schema) {
     // Get data
     let dataElement = element.querySelector('input[type="hidden"]');
     let data = JSON.parse(dataElement.value);
+    console.log(data);
 
     store.dispatch({
         type: 'SET_INITIAL_STATE',

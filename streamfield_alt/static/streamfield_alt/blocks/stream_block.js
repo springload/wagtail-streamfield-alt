@@ -6,6 +6,7 @@ import {renderBlock, getBlockReducer} from '.';
 export function streamBlockReducerBuilder(schema) {
 
     return (state=[], action) => {
+        console.log(action);
         if (!action.pathComponents.length) {
             // Action is for this block
             switch (action.type) {
@@ -20,6 +21,15 @@ export function streamBlockReducerBuilder(schema) {
                         newBlock,
                         ...state.slice(action.position),
                     ];
+                    break;
+                case 'DELETE_CHILD_BLOCK':
+                    return [
+                        ...state.filter((child, index) => index !== action.position)
+                    ]
+                case 'MOVE_CHILD_BLOCK':
+                    const arr = [...state];
+                    arr.splice(action.to, 0, arr.splice(action.position, 1)[0]);
+                    return arr;
             }
         } else {
             // Action is for a child block
@@ -117,15 +127,14 @@ class StreamChild extends React.Component {
         let actionButtons = [];
 
         if (!this.props.isFirst) {
-            actionButtons.push(<button key="moveup" type="button" id={`${this.props.path}-moveup`} title="Move up" className="icon text-replace icon-order-up">Move up</button>);
+            actionButtons.push(<button key="moveup" type="button" id={`${this.props.path}-moveup`} title="Move up" className="icon text-replace icon-order-up" onClick={this.props.onMoveUpItem}>Move up</button>);
         }
 
         if (!this.props.isLast) {
-            actionButtons.push(<button key='movedown' type="button" id={`${this.props.path}-movedown`} title="Move down" className="icon text-replace icon-order-down">Move down</button>);
+            actionButtons.push(<button key='movedown' type="button" id={`${this.props.path}-movedown`} title="Move down" className="icon text-replace icon-order-down" onClick={this.props.onMoveDownItem}>Move down</button>);
         }
 
-        actionButtons.push(<button key='delete' type="button" id={`${this.props.path}-delete`} title="Delete" className="icon text-replace hover-no icon-bin">Delete</button>);
-
+        actionButtons.push(<button key='delete' type="button" id={`${this.props.path}-delete`} title="Delete" className="icon text-replace hover-no icon-bin" onClick={this.props.onDeleteItem}>Delete</button>);
 
         return <li id={`${this.props.path}-container`} className={`sequence-member blockname-${this.props.type}`}>
             <div className="sequence-controls">
@@ -137,7 +146,13 @@ class StreamChild extends React.Component {
             <div className="sequence-member-inner ">
                 {renderBlock(this.props.store, this.props.value, this.props.schema, this.props.path)}
             </div>
-            <StreamMenu id={`${this.props.path}-appendmenu`} schema={this.props.parentSchema} onAddItem={this.props.onAddItem} />
+            { (this.props.store.getState().length < this.props.parentSchema.maxNum) ? (
+                <StreamMenu
+                    id={`${this.props.path}-appendmenu`}
+                    schema={this.props.parentSchema}
+                    onAddItem={this.props.onAddItem}
+                />
+            ) : null }
         </li>;
     }
 }
@@ -152,6 +167,23 @@ export class StreamBlock extends React.Component {
         });
     }
 
+    deleteChildBlock(position) {
+        this.props.store.dispatch({
+            type: 'DELETE_CHILD_BLOCK',
+            path: this.props.path,
+            position: position,
+        });
+    }
+
+    moveChildBlock(position, to) {
+        this.props.store.dispatch({
+            type: 'MOVE_CHILD_BLOCK',
+            path: this.props.path,
+            position: position,
+            to: to,
+        });
+    }
+
     render() {
         let childBlocks = [];
 
@@ -161,16 +193,36 @@ export class StreamBlock extends React.Component {
             let value = this.props.value[id].value;
             let schema = this.props.schema.child_blocks[type];
             let isFirst = id == 0;
-            let isLast = id ==this.props.value.length - 1;
+            let isLast = id == this.props.value.length - 1;
 
-            childBlocks.push(<StreamChild key={id} store={this.props.store} path={path} type={type} value={value} schema={schema} parentSchema={this.props.schema} onAddItem={type => this.newChildBlock(type, parseInt(id) + 1)} isFirst={isFirst} isLast={isLast} />);
+            childBlocks.push(<StreamChild
+                key={id}
+                store={this.props.store}
+                path={path}
+                type={type}
+                value={value}
+                schema={schema}
+                parentSchema={this.props.schema}
+                onAddItem={type => this.newChildBlock(type, parseInt(id) + 1)}
+                isFirst={isFirst}
+                isLast={isLast}
+                onDeleteItem={() => this.deleteChildBlock(parseInt(id))}
+                onMoveUpItem={() => this.moveChildBlock(parseInt(id), parseInt(id) - 1)}
+                onMoveDownItem={() => this.moveChildBlock(parseInt(id), parseInt(id) + 1)}
+            />);
         }
 
         return <div className="field block_field block_widget ">
             <div className="field-content">
                 <div className="input  ">
                     <div className="sequence-container sequence-type-stream">
-                        <StreamMenu id={`${this.props.path}-prependmenu`} schema={this.props.schema} onAddItem={type => this.newChildBlock(type, 0)} />
+                        { (childBlocks.length < this.props.schema.maxNum) ? (
+                        <StreamMenu
+                            id={`${this.props.path}-prependmenu`}
+                            schema={this.props.schema}
+                            onAddItem={type => this.newChildBlock(type, 0)}
+                        />
+                        ) : null }
 
                         <div className="sequence-container-inner">
                             <ul id="body-list" className="sequence">

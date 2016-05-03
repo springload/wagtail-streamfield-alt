@@ -12,6 +12,6 @@
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
-        StreamFieldAlt.init(document.getElementById('{{ self.id_for_label }}'), {{ self.get_schema_json|safe }});
+        StreamFieldAlt.init(document.getElementById('{{ self.id_for_label }}'), {{ self.get_schema_json|safe }}, {{self.min_num}}, {{self.max_num}});
     });
 </script>

@@ -31,12 +31,16 @@ class BaseStreamFieldPanel(BaseFieldPanel):
 
 
 class StreamFieldPanel(object):
-    def __init__(self, field_name):
+    def __init__(self, field_name, min_num=None, max_num=None):
         self.field_name = field_name
+        self.min_num = min_num
+        self.max_num = max_num
 
     def bind_to_model(self, model):
         return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
             'model': model,
             'field_name': self.field_name,
-            'block_def': model._meta.get_field(self.field_name).stream_block
+            'block_def': model._meta.get_field(self.field_name).stream_block,
+            'min_num': self.min_num,
+            'max_num': self.max_num,
         })
