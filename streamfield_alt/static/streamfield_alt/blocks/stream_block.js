@@ -6,7 +6,6 @@ import {renderBlock, getBlockReducer} from '.';
 export function streamBlockReducerBuilder(schema) {
 
     return (state=[], action) => {
-        console.log(action);
         if (!action.pathComponents.length) {
             // Action is for this block
             switch (action.type) {
@@ -127,14 +126,14 @@ class StreamChild extends React.Component {
         let actionButtons = [];
 
         if (!this.props.isFirst) {
-            actionButtons.push(<button key="moveup" type="button" id={`${this.props.path}-moveup`} title="Move up" className="icon text-replace icon-order-up" onClick={this.props.onMoveUpItem}>Move up</button>);
+            actionButtons.push(<button key="moveup" type="button" id={`${this.props.path}-moveup`} title="Move up" className="button icon text-replace icon-order-up" onClick={this.props.onMoveUpItem}>Move up</button>);
         }
 
         if (!this.props.isLast) {
-            actionButtons.push(<button key='movedown' type="button" id={`${this.props.path}-movedown`} title="Move down" className="icon text-replace icon-order-down" onClick={this.props.onMoveDownItem}>Move down</button>);
+            actionButtons.push(<button key="movedown" type="button" id={`${this.props.path}-movedown`} title="Move down" className="button icon text-replace icon-order-down" onClick={this.props.onMoveDownItem}>Move down</button>);
         }
 
-        actionButtons.push(<button key='delete' type="button" id={`${this.props.path}-delete`} title="Delete" className="icon text-replace hover-no icon-bin" onClick={this.props.onDeleteItem}>Delete</button>);
+        actionButtons.push(<button key="delete" type="button" id={`${this.props.path}-delete`} title="Delete" className="button icon text-replace hover-no icon-bin" onClick={this.props.onDeleteItem}>Delete</button>);
 
         return <li id={`${this.props.path}-container`} className={`sequence-member blockname-${this.props.type}`}>
             <div className="sequence-controls">

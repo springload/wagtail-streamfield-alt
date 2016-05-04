@@ -15,8 +15,6 @@ export function init(element, schema, minNum=null, maxNum=null) {
             let pathComponents = action.path.split('-');
             let fieldName = pathComponents.shift();
 
-            console.log(action.path);
-
             let newAction = Object.assign({}, action, {
                 pathComponents,
                 fieldName,
@@ -44,7 +42,6 @@ export function init(element, schema, minNum=null, maxNum=null) {
     // Get data
     let dataElement = element.querySelector('input[type="hidden"]');
     let data = JSON.parse(dataElement.value);
-    console.log(data);
 
     store.dispatch({
         type: 'SET_INITIAL_STATE',
