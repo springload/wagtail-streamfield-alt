@@ -25,7 +25,7 @@ export class FieldBlock extends React.Component {
 
 export class CharBlock extends FieldBlock {
     render() {
-        return <div className="field char_field widget-text_input fieldname-attribution">
+        return <div className={`field char_field widget-text_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname}`}>
             <div className="field-content">
                 <div className="input">
                     <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} defaultValue={this.props.value} type="text" onChange={e => this.setValue(e.target.value)} />
