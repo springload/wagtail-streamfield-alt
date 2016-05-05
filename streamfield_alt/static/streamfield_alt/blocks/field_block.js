@@ -37,7 +37,7 @@ export class CharBlock extends FieldBlock {
 
 export class TextBlock extends FieldBlock {
     render() {
-        return <div className="field char_field widget-admin_auto_height_text_input fieldname-quote">
+        return <div className={`field char_field widget-admin_auto_height_text_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname}`}>
             <div className="field-content">
                 <div className="input">
                     <textarea style={{overflow: 'hidden', wordWrap: 'break-word', resize: 'horizontal', height: '93px'}} data-autosize-on="true" cols="40" id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} rows="1" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)} />
@@ -53,7 +53,7 @@ export class TextBlock extends FieldBlock {
 
 export class RichTextBlock extends FieldBlock {
     render() {
-        return <div className="field char_field widget-rich_text_area fieldname-paragraph">
+        return <div className={`field char_field widget-rich_text_area fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname}`}>
             <div className="field-content">
                 <div className="input">
                     <textarea cols="40" id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder="Paragraph" rows="10" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)} />
@@ -69,7 +69,7 @@ export class RichTextBlock extends FieldBlock {
 
 export class ImageChooserBlock extends FieldBlock {
     render() {
-        return <div className="field model_choice_field widget-admin_image_chooser fieldname-image">
+        return <div className={`field model_choice_field widget-admin_image_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname}`}>
             <div className="field-content">
                 <div className="input">
                     <div id={`${this.props.path}-chooser`} className="chooser image-chooser">
