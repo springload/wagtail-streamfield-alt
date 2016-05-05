@@ -19,6 +19,7 @@ def get_block_schema(block):
             },
             'default_value': [],
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.StructBlock):
         return {
@@ -33,6 +34,7 @@ def get_block_schema(block):
                 for name, child_block in block.child_blocks.items()
             },
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.ListBlock):
         return {
@@ -41,6 +43,7 @@ def get_block_schema(block):
             'child_block': get_block_schema(block.child_block),
             'default_value': [],
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.CharBlock):
         return {
@@ -52,6 +55,7 @@ def get_block_schema(block):
             'min_length': block.field.min_length,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.TextBlock):
         return {
@@ -63,6 +67,7 @@ def get_block_schema(block):
             'min_length': block.field.min_length,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.URLBlock):
         return {
@@ -74,6 +79,7 @@ def get_block_schema(block):
             'min_length': block.field.min_length,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.BooleanBlock):
         return {
@@ -83,6 +89,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.DateBlock):
         return {
@@ -92,6 +99,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.TimeBlock):
         return {
@@ -101,6 +109,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.DateTimeBlock):
         return {
@@ -110,6 +119,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.ChoiceBlock):
         return {
@@ -120,6 +130,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.RichTextBlock):
         return {
@@ -129,6 +140,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.RawHTMLBlock):
         return {
@@ -138,6 +150,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.PageChooserBlock):
         return {
@@ -147,6 +160,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, ImageChooserBlock):
         return {
@@ -156,6 +170,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, DocumentChooserBlock):
         return {
@@ -165,6 +180,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, SnippetChooserBlock):
         return {
@@ -174,6 +190,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.FieldBlock):
         return {
@@ -183,6 +200,7 @@ def get_block_schema(block):
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
             'classname': block.meta.classname,
+            'icon': block.meta.icon,
         }
     else:
         raise UnrecogisedBlockTypeError()

@@ -98,7 +98,7 @@ class StreamMenu extends React.Component {
 
             choices.push(
                 <li key={choice}>
-                    <button type="button" className="action-add-block-h2 icon icon-title" onClick={onClick}><span>{schema.label}</span> </button>
+                    <button type="button" className={`action-add-block-h2 icon icon-${schema.icon ? schema.icon : 'placeholder'}`} onClick={onClick}><span>{schema.label}</span> </button>
                 </li>
             );
         }
