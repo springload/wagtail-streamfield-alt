@@ -24,17 +24,17 @@ def get_block_schema(block):
             'icon': block.meta.icon,
         }
     elif isinstance(block, blocks.StructBlock):
+        child_blocks = OrderedDict()
+        default_value = OrderedDict()
+        for name, child_block in block.child_blocks.items():
+            child_blocks[name] = get_block_schema(child_block)
+            default_value[name] = get_block_schema(child_block)['default_value']
+
         return {
             'type': 'wagtail.core.StructBlock',
             'label': block.label,
-            'child_blocks': {
-                name: get_block_schema(child_block)
-                for name, child_block in block.child_blocks.items()
-            },
-            'default_value': {
-                name: get_block_schema(child_block)['default_value']
-                for name, child_block in block.child_blocks.items()
-            },
+            'child_blocks': child_blocks,
+            'default_value': default_value,
             'classname': block.meta.classname,
             'icon': block.meta.icon,
         }
