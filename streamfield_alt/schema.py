@@ -3,6 +3,7 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 
+from collections import OrderedDict
 
 class UnrecogisedBlockTypeError(RuntimeError):
     pass
@@ -10,13 +11,14 @@ class UnrecogisedBlockTypeError(RuntimeError):
 
 def get_block_schema(block):
     if isinstance(block, blocks.StreamBlock):
+        child_blocks = OrderedDict()
+        for name, child_block in block.child_blocks.items():
+            child_blocks[name] = get_block_schema(child_block)
+
         return {
             'type': 'wagtail.core.StreamBlock',
             'label': block.label,
-            'child_blocks': {
-                name: get_block_schema(child_block)
-                for name, child_block in block.child_blocks.items()
-            },
+            'child_blocks': child_blocks,
             'default_value': [],
             'classname': block.meta.classname,
             'icon': block.meta.icon,
