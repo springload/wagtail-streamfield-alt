@@ -42,7 +42,24 @@ export class TextBlock extends FieldBlock {
 `}>
             <div className="field-content">
                 <div className="input">
-                    <textarea style={{overflow: 'hidden', wordWrap: 'break-word', resize: 'horizontal', height: '93px'}} data-autosize-on="true" cols="40" id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} rows="1" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)} />
+                    <textarea style={{overflow: 'hidden', wordWrap: 'break-word', resize: 'horizontal', height: '50px'}} data-autosize-on="true" cols="40" id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} rows="1" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)} />
+                </div>
+            </div>
+        </div>;
+    }
+
+    componentDidMount() {
+        autosize($(`#${this.props.path}`));
+    }
+}
+
+export class URLBlock extends FieldBlock {
+    render() {
+        return <div className={`field url_field widget-url_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
+`}>
+            <div className="field-content">
+                <div className="input">
+                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} type="url" onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} />
                 </div>
             </div>
         </div>;
