@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {StreamBlock, streamBlockReducerBuilder} from './stream_block';
 import {StructBlock, structBlockReducerBuilder} from './struct_block';
-import {CharBlock, TextBlock, URLBlock, BooleanBlock, RawHTMLBlock, RichTextBlock, ImageChooserBlock, ImageFormatChoiceBlock, ChoiceBlock, fieldBlockReducerBuilder} from './field_block';
+import {CharBlock, TextBlock, URLBlock, DateBlock, BooleanBlock, RawHTMLBlock, RichTextBlock, ImageChooserBlock, ImageFormatChoiceBlock, ChoiceBlock, fieldBlockReducerBuilder} from './field_block';
 
 
 let BLOCK_TYPES_REGISTRY = {
@@ -16,6 +16,7 @@ let BLOCK_TYPES_REGISTRY = {
     'wagtail.core.RichTextBlock': RichTextBlock,
     'wagtail.images.ImageChooserBlock': ImageChooserBlock,
     'wagtail.core.ChoiceBlock': ChoiceBlock,
+    'wagtail.core.DateBlock': DateBlock,
 };
 
 let BLOCK_REDUCER_BUILDERS_REGISTRY = {
@@ -29,6 +30,7 @@ let BLOCK_REDUCER_BUILDERS_REGISTRY = {
     'wagtail.core.RichTextBlock': fieldBlockReducerBuilder,
     'wagtail.images.ImageChooserBlock': fieldBlockReducerBuilder,
     'wagtail.core.ChoiceBlock': fieldBlockReducerBuilder,
+    'wagtail.core.DateBlock': fieldBlockReducerBuilder,
 };
 
 

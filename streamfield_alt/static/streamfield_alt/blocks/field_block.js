@@ -79,10 +79,6 @@ export class BooleanBlock extends FieldBlock {
             </div>
         </div>;
     }
-
-    componentDidMount() {
-        autosize($(`#${this.props.path}`));
-    }
 }
 
 export class RichTextBlock extends FieldBlock {
@@ -114,9 +110,24 @@ export class RawHTMLBlock extends FieldBlock {
             </div>
         </div>;
     }
+}
 
+export class DateBlock extends FieldBlock {
     componentDidMount() {
-        makeRichTextEditable(`${this.props.path}-value`);
+        initDateChooser(this.props.path, {"dayOfWeekStart": 1});
+    }
+
+    render() {
+        return (
+            <div className={`field date_field widget-admin_date_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
+`}>
+            <div className="field-content">
+                <div className="input">
+                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} type="text" />
+                    <span></span>
+                </div>
+            </div>
+        </div>);
     }
 }
 
