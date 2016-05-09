@@ -158,6 +158,7 @@ def get_block_schema(block):
         return {
             'type': 'wagtail.core.PageChooserBlock',
             'label': block.label,
+            'can_choose_root': block.can_choose_root,
             'required': block.field.required,
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
