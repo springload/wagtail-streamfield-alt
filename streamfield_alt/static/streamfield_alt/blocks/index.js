@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {StreamBlock, streamBlockReducerBuilder} from './stream_block';
 import {StructBlock, structBlockReducerBuilder} from './struct_block';
-import {CharBlock, TextBlock, URLBlock, DateBlock, DateTimeBlock, PageChooserBlock, TimeBlock, BooleanBlock, RawHTMLBlock, RichTextBlock, ImageChooserBlock, ImageFormatChoiceBlock, ChoiceBlock, fieldBlockReducerBuilder} from './field_block';
+import {CharBlock, TextBlock, URLBlock, DateBlock, DateTimeBlock, PageChooserBlock, DocumentChooserBlock, TimeBlock, BooleanBlock, RawHTMLBlock, RichTextBlock, ImageChooserBlock, ImageFormatChoiceBlock, ChoiceBlock, fieldBlockReducerBuilder} from './field_block';
 
 
 let BLOCK_TYPES_REGISTRY = {
@@ -14,12 +14,13 @@ let BLOCK_TYPES_REGISTRY = {
     'wagtail.core.BooleanBlock': BooleanBlock,
     'wagtail.core.RawHTMLBlock': RawHTMLBlock,
     'wagtail.core.RichTextBlock': RichTextBlock,
-    'wagtail.images.ImageChooserBlock': ImageChooserBlock,
+    'wagtail.wagtailimages.ImageChooserBlock': ImageChooserBlock,
     'wagtail.core.ChoiceBlock': ChoiceBlock,
     'wagtail.core.DateBlock': DateBlock,
     'wagtail.core.DateTimeBlock': DateTimeBlock,
     'wagtail.core.TimeBlock': TimeBlock,
     'wagtail.core.PageChooserBlock': PageChooserBlock,
+    'wagtail.wagtaildocs.DocumentChooserBlock': DocumentChooserBlock,
 };
 
 let BLOCK_REDUCER_BUILDERS_REGISTRY = {
@@ -31,11 +32,12 @@ let BLOCK_REDUCER_BUILDERS_REGISTRY = {
     'wagtail.core.RawHTMLBlock': fieldBlockReducerBuilder,
     'wagtail.core.BooleanBlock': fieldBlockReducerBuilder,
     'wagtail.core.RichTextBlock': fieldBlockReducerBuilder,
-    'wagtail.images.ImageChooserBlock': fieldBlockReducerBuilder,
+    'wagtail.wagtailimages.ImageChooserBlock': fieldBlockReducerBuilder,
     'wagtail.core.ChoiceBlock': fieldBlockReducerBuilder,
     'wagtail.core.DateBlock': fieldBlockReducerBuilder,
     'wagtail.core.TimeBlock': fieldBlockReducerBuilder,
     'wagtail.core.PageChooserBlock': fieldBlockReducerBuilder,
+    'wagtail.wagtaildocs.DocumentChooserBlock': fieldBlockReducerBuilder,
 };
 
 
@@ -48,6 +50,7 @@ class UnknownBlock extends React.Component {
 
 
 export function renderBlock(store, value, schema, path) {
+    console.log(schema.type);
     let Component = BLOCK_TYPES_REGISTRY[schema.type] || UnknownBlock;
     return <Component store={store} value={value} schema={schema} path={path} />;
 }

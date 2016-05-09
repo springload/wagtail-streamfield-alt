@@ -167,7 +167,7 @@ def get_block_schema(block):
         }
     elif isinstance(block, ImageChooserBlock):
         return {
-            'type': 'wagtail.images.ImageChooserBlock',
+            'type': 'wagtail.wagtailimages.ImageChooserBlock',
             'label': block.label,
             'required': block.field.required,
             'help_text': block.field.help_text,
@@ -177,7 +177,7 @@ def get_block_schema(block):
         }
     elif isinstance(block, DocumentChooserBlock):
         return {
-            'type': 'wagtail.documents.DocumentChooserBlock',
+            'type': 'wagtail.wagtaildocs.DocumentChooserBlock',
             'label': block.label,
             'required': block.field.required,
             'help_text': block.field.help_text,
