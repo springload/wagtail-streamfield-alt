@@ -17,7 +17,7 @@ export class FieldBlock extends React.Component {
     setValue(value) {
         this.props.store.dispatch({
             type: 'SET_VALUE',
-            path: this.props.path,
+            path: `${this.props.path}-value`,
             value: value,
         })
     }
@@ -25,11 +25,10 @@ export class FieldBlock extends React.Component {
 
 export class CharBlock extends FieldBlock {
     render() {
-        return <div className={`field char_field widget-text_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field char_field widget-text_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} defaultValue={this.props.value} type="text" onChange={e => this.setValue(e.target.value)} />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} defaultValue={this.props.value} type="text" onChange={e => this.setValue(e.target.value)} />
                </div>
             </div>
         </div>;
@@ -38,28 +37,26 @@ export class CharBlock extends FieldBlock {
 
 export class TextBlock extends FieldBlock {
     render() {
-        return <div className={`field char_field widget-admin_auto_height_text_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field char_field widget-admin_auto_height_text_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <textarea style={{overflow: 'hidden', wordWrap: 'break-word', resize: 'horizontal', height: '50px'}} data-autosize-on="true" cols="40" id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} rows="1" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)} />
+                    <textarea style={{overflow: 'hidden', wordWrap: 'break-word', resize: 'horizontal', height: '50px'}} data-autosize-on="true" cols="40" id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} rows="1" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)} />
                 </div>
             </div>
         </div>;
     }
 
     componentDidMount() {
-        autosize($(`#${this.props.path}`));
+        autosize($(`#${this.props.path}-value`));
     }
 }
 
 export class URLBlock extends FieldBlock {
     render() {
-        return <div className={`field url_field widget-url_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field url_field widget-url_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} type="url" onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} type="url" onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} />
                     <span></span>
                 </div>
             </div>
@@ -69,11 +66,10 @@ export class URLBlock extends FieldBlock {
 
 export class BooleanBlock extends FieldBlock {
     render() {
-        return <div className={`field boolean_field widget-checkbox_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field boolean_field widget-checkbox_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} type="checkbox" onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} type="checkbox" onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} />
                     <span></span>
                 </div>
             </div>
@@ -83,8 +79,7 @@ export class BooleanBlock extends FieldBlock {
 
 export class RichTextBlock extends FieldBlock {
     render() {
-        return <div className={`field char_field widget-rich_text_area fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field char_field widget-rich_text_area fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
                     <textarea cols="40" id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder="Paragraph" rows="10" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)} />
@@ -100,8 +95,7 @@ export class RichTextBlock extends FieldBlock {
 
 export class RawHTMLBlock extends FieldBlock {
     render() {
-        return <div className={`field char_field widget-textarea fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field char_field widget-textarea fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
                     <textarea cols="40" id={`${this.props.path}-value-html`} name={`${this.props.path}-value-html`} placeholder={this.props.schema.label} rows="10" defaultValue={this.props.value} onChange={e => this.setValue(e.target.value)}></textarea>
@@ -114,16 +108,15 @@ export class RawHTMLBlock extends FieldBlock {
 
 export class DateBlock extends FieldBlock {
     componentDidMount() {
-        initDateChooser(this.props.path, {"dayOfWeekStart": 1});
+        initDateChooser(`${this.props.path}-value`, {"dayOfWeekStart": 1});
     }
 
     render() {
         return (
-            <div className={`field date_field widget-admin_date_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+            <div className={`field date_field widget-admin_date_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} type="text" />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} type="text" />
                     <span></span>
                 </div>
             </div>
@@ -133,16 +126,15 @@ export class DateBlock extends FieldBlock {
 
 export class TimeBlock extends FieldBlock {
     componentDidMount() {
-        initTimeChooser(this.props.path);
+        initTimeChooser(`${this.props.path}-value`);
     }
 
     render() {
         return (
-            <div className={`field time_field widget-admin_time_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+            <div className={`field time_field widget-admin_time_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} type="text" />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} type="text" />
                     <span></span>
                 </div>
             </div>
@@ -152,16 +144,15 @@ export class TimeBlock extends FieldBlock {
 
 export class DateTimeBlock extends FieldBlock {
     componentDidMount() {
-        initDateTimeChooser(this.props.path, {"dayOfWeekStart": 1});
+        initDateTimeChooser(`${this.props.path}-value`, {"dayOfWeekStart": 1});
     }
 
     render() {
         return (
-            <div className={`field date_time_field widget-admin_date_time_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+            <div className={`field date_time_field widget-admin_date_time_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} type="text" />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} onChange={e => this.setValue(e.target.value)} defaultValue={this.props.value} type="text" />
                     <span></span>
                 </div>
             </div>
@@ -174,7 +165,7 @@ export class ChoiceBlock extends FieldBlock {
         return <div className={`field choice_field widget-rich_text_area fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <select id={this.props.path} name={this.props.path} placeholder={this.props.label}>
+                    <select id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.label}>
                         {this.props.schema.choices.map((item) => (
                             <option key={item[0]} value={item[0]}>{item[1]}</option>
                         ))}
@@ -192,11 +183,10 @@ export class ChoiceBlock extends FieldBlock {
 
 export class ImageChooserBlock extends FieldBlock {
     render() {
-        return <div className={`field model_choice_field widget-admin_image_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field model_choice_field widget-admin_image_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <div id={`${this.props.path}-chooser`} className={`chooser image-chooser ${this.props.value === null ? 'blank' : ''}`}>
+                    <div id={`${this.props.path}-value-chooser`} className={`chooser image-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
                                 <div className="preview-image">
                                     <img alt="Wagtail collects insects by Margrit" className="show-transparency" src="" height="102" width="165" />
@@ -214,24 +204,23 @@ export class ImageChooserBlock extends FieldBlock {
                             <button type="button" className="button action-choose button-small button-secondary">Choose an image</button>
                         </div>
                     </div>
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
                 </div>
             </div>
         </div>
     }
 
     componentDidMount() {
-        createImageChooser(this.props.path);
+        createImageChooser(`${this.props.path}-value`);
     }
 }
 
 export class PageChooserBlock extends FieldBlock {
     render() {
-        return <div className={`field model_choice_field widget-admin_page_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field model_choice_field widget-admin_page_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <div id={`${this.props.path}-chooser`} className={`chooser page-chooser ${this.props.value === null ? 'blank' : ''}`}>
+                    <div id={`${this.props.path}-value-chooser`} className={`chooser page-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
                             <span className="title"></span>
                             <ul className="actions">
@@ -247,24 +236,23 @@ export class PageChooserBlock extends FieldBlock {
                             <button type="button" className="button action-choose button-small button-secondary">Choose a page</button>
                         </div>
                     </div>
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
                 </div>
             </div>
         </div>
     }
 
     componentDidMount() {
-        createPageChooser(this.props.path, [], this.props.can_choose_root);
+        createPageChooser(`${this.props.path}-value`, [], this.props.can_choose_root);
     }
 }
 
 export class DocumentChooserBlock extends FieldBlock {
     render() {
-        return <div className={`field model_choice_field widget-admin_document_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}
-`}>
+        return <div className={`field model_choice_field widget-admin_document_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
-                    <div id={`${this.props.path}-chooser`} className={`chooser document-chooser ${this.props.value === null ? 'blank' : ''}`}>
+                    <div id={`${this.props.path}-value-chooser`} className={`chooser document-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
                             <span className="title"></span>
                             <ul className="actions">
@@ -280,13 +268,45 @@ export class DocumentChooserBlock extends FieldBlock {
                             <button type="button" className="button action-choose button-small button-secondary">Choose a document</button>
                         </div>
                     </div>
-                    <input id={this.props.path} name={this.props.path} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
                 </div>
             </div>
         </div>
     }
 
     componentDidMount() {
-        createDocumentChooser(this.props.path);
+        createDocumentChooser(`${this.props.path}-value`);
+    }
+}
+
+export class SnippetChooserBlock extends FieldBlock {
+    render() {
+        return <div className={`field model_choice_field widget-admin_snippet_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
+            <div className="field-content">
+                <div className="input">
+                    <div id={`${this.props.path}-value-chooser`} className={`chooser snippet-chooser ${this.props.value === null ? 'blank' : ''}`}>
+                        <div className="chosen">
+                            <span className="title"></span>
+                            <ul className="actions">
+                                <li>
+                                    <button type="button" className="button action-choose button-small button-secondary">Choose another snippet</button>
+                                </li>
+                                <li>
+                                    <a href={`/admin/snippets/${this.props.value}/edit`} className="button edit-link button-small button-secondary" target="_blank">Edit this snippet</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="unchosen">
+                            <button type="button" className="button action-choose button-small button-secondary">Choose {this.props.schema.model}</button>
+                        </div>
+                    </div>
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
+                </div>
+            </div>
+        </div>
+    }
+
+    componentDidMount() {
+        createSnippetChooser(`${this.props.path}-value`, `${this.props.schema.app}/${this.props.schema.model}`);
     }
 }
