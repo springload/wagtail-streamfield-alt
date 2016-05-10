@@ -2,6 +2,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock
 
 from collections import OrderedDict
 
@@ -191,6 +192,16 @@ def get_block_schema(block):
             'label': block.label,
             'app': block.target_model._meta.app_label,
             'model': block.target_model._meta.model_name,
+            'required': block.field.required,
+            'help_text': block.field.help_text,
+            'default_value': block.meta.default,
+            'classname': block.meta.classname,
+            'icon': block.meta.icon,
+        }
+    elif isinstance(block, EmbedBlock):
+        return {
+            'type': 'wagtail.wagtailembeds.EmbedBlock',
+            'label': block.label,
             'required': block.field.required,
             'help_text': block.field.help_text,
             'default_value': block.meta.default,
