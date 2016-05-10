@@ -22,13 +22,18 @@ export function streamBlockReducerBuilder(schema) {
                     ];
                     break;
                 case 'DELETE_CHILD_BLOCK':
-                    return [
-                        ...state.filter((child, index) => index !== action.position)
-                    ]
+                    const oldArr = [...state];
+                    const deletedChild = oldArr[action.position];
+                    deletedChild['isDeleted'] = true;
+                    const newArr = oldArr.filter((child, index) => index !== action.position);
+                    newArr.push(deletedChild);
+                    return newArr;
+                    break;
                 case 'MOVE_CHILD_BLOCK':
                     const arr = [...state];
                     arr.splice(action.to, 0, arr.splice(action.position, 1)[0]);
                     return arr;
+                    break;
             }
         } else {
             // Action is for a child block
@@ -123,6 +128,7 @@ class StreamMenu extends React.Component {
 
 class StreamChild extends React.Component {
     render() {
+        let isDeleted = this.props.isDeleted ? this.props.isDeleted : '';
         let actionButtons = [];
 
         if (!this.props.isFirst) {
@@ -135,7 +141,10 @@ class StreamChild extends React.Component {
 
         actionButtons.push(<button key="delete" type="button" id={`${this.props.path}-delete`} title="Delete" className="button icon text-replace hover-no icon-bin" onClick={this.props.onDeleteItem}>Delete</button>);
 
-        return <li id={`${this.props.path}-container`} className={`sequence-member blockname-${this.props.type}`}>
+        return <li id={`${this.props.path}-container`} className={`sequence-member blockname-${this.props.type} ${isDeleted === true ? '-hide' : ''}`}>
+            <input type="hidden" id={`${this.props.path}-deleted`} name={`${this.props.path}-deleted`} value={isDeleted} />
+            <input type="hidden" id={`${this.props.path}-order`} name={`${this.props.path}-order`} value={`${this.props.index}`} />
+            <input type="hidden" id={`${this.props.path}-type`} name={`${this.props.path}-type`} value={`${this.props.type}`} />
             <div className="sequence-controls">
                 <h3><label for={`${this.props.path}-value`}>{this.props.schema.label}</label></h3>
                 <div className="button-group button-group-square">
@@ -193,9 +202,11 @@ export class StreamBlock extends React.Component {
             let schema = this.props.schema.child_blocks[type];
             let isFirst = id == 0;
             let isLast = id == this.props.value.length - 1;
+            let isDeleted = this.props.value[id].isDeleted;
 
             childBlocks.push(<StreamChild
                 key={id}
+                index={id}
                 store={this.props.store}
                 path={path}
                 type={type}
@@ -205,6 +216,7 @@ export class StreamBlock extends React.Component {
                 onAddItem={type => this.newChildBlock(type, parseInt(id) + 1)}
                 isFirst={isFirst}
                 isLast={isLast}
+                isDeleted={isDeleted}
                 onDeleteItem={() => this.deleteChildBlock(parseInt(id))}
                 onMoveUpItem={() => this.moveChildBlock(parseInt(id), parseInt(id) - 1)}
                 onMoveDownItem={() => this.moveChildBlock(parseInt(id), parseInt(id) + 1)}
@@ -215,6 +227,7 @@ export class StreamBlock extends React.Component {
             <div className="field-content">
                 <div className="input  ">
                     <div className="sequence-container sequence-type-stream">
+                        <input type="hidden" name="body-count" id="body-count" value={childBlocks.length} />
                         { (childBlocks.length < this.props.schema.maxNum) ? (
                         <StreamMenu
                             id={`${this.props.path}-prependmenu`}

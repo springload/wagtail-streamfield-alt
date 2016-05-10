@@ -15,3 +15,7 @@
     height: 0;
     transition: height 0.3s;
 }
+
+.-hide {
+    display: none;
+}
