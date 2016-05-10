@@ -69,7 +69,6 @@ class UnknownBlock extends React.Component {
 
 
 export function renderBlock(store, value, schema, path) {
-    console.log(schema.type);
     let Component = BLOCK_TYPES_REGISTRY[schema.type] || UnknownBlock;
     return <Component store={store} value={value} schema={schema} path={path} />;
 }
