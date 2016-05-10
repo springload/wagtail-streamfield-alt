@@ -154,7 +154,7 @@ class StreamChild extends React.Component {
             <div className="sequence-member-inner ">
                 {renderBlock(this.props.store, this.props.value, this.props.schema, this.props.path)}
             </div>
-            { (this.props.store.getState().length < this.props.parentSchema.maxNum) ? (
+            { ((this.props.store.getState().length - this.props.countDeleted) < this.props.parentSchema.maxNum) ? (
                 <StreamMenu
                     id={`${this.props.path}-appendmenu`}
                     schema={this.props.parentSchema}
@@ -195,14 +195,22 @@ export class StreamBlock extends React.Component {
     render() {
         let childBlocks = [];
 
+        let countDeleted = 0;
+        for (let id in this.props.value) {
+            if(this.props.value[id].isDeleted) {
+                countDeleted++;
+            }
+        }
+
+
         for (let id in this.props.value) {
             let path = `${this.props.path}-${id}`;
             let type = this.props.value[id].type;
             let value = this.props.value[id].value;
             let schema = this.props.schema.child_blocks[type];
-            let isFirst = id == 0;
-            let isLast = id == this.props.value.length - 1;
             let isDeleted = this.props.value[id].isDeleted;
+            let isFirst = id == 0 && !isDeleted;
+            let isLast = id == this.props.value.length - (countDeleted + 1);
 
             childBlocks.push(<StreamChild
                 key={id}
@@ -220,6 +228,7 @@ export class StreamBlock extends React.Component {
                 onDeleteItem={() => this.deleteChildBlock(parseInt(id))}
                 onMoveUpItem={() => this.moveChildBlock(parseInt(id), parseInt(id) - 1)}
                 onMoveDownItem={() => this.moveChildBlock(parseInt(id), parseInt(id) + 1)}
+                countDeleted={countDeleted}
             />);
         }
 
@@ -228,7 +237,7 @@ export class StreamBlock extends React.Component {
                 <div className="input  ">
                     <div className="sequence-container sequence-type-stream">
                         <input type="hidden" name="body-count" id="body-count" value={childBlocks.length} />
-                        { (childBlocks.length < this.props.schema.maxNum) ? (
+                        { ((childBlocks.length - countDeleted) < this.props.schema.maxNum) ? (
                         <StreamMenu
                             id={`${this.props.path}-prependmenu`}
                             schema={this.props.schema}
