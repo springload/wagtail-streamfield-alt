@@ -10,7 +10,7 @@ export function streamBlockReducerBuilder(schema) {
             // Action is for this block
             switch (action.type) {
                 case 'NEW_CHILD_BLOCK':
-                    let newBlock = {
+                    const newBlock = {
                         type: action.blockType,
                         value: schema.child_blocks[action.blockType].default_value,
                     };
@@ -37,14 +37,14 @@ export function streamBlockReducerBuilder(schema) {
             }
         } else {
             // Action is for a child block
-            let blockId = action.pathComponents[0];
-            let newAction = Object.assign({}, action, {
+            const blockId = action.pathComponents[0];
+            const newAction = Object.assign({}, action, {
                 pathComponents: action.pathComponents.slice(1),
             });
-            let blockType = state[blockId].type;
-            let blockValue = state[blockId].value;
+            const blockType = state[blockId].type;
+            const blockValue = state[blockId].value;
 
-            let newState = state.slice();
+            const newState = state.slice();
             newState[blockId] = {
                 type: blockType,
                 value: getBlockReducer(schema.child_blocks[blockType])(blockValue, newAction)
@@ -58,78 +58,12 @@ export function streamBlockReducerBuilder(schema) {
 }
 
 
-class StreamMenu extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            isOpen: false,
-        };
-    }
-
-    getClassNames() {
-        let classNames = ['stream-menu'];
-
-        if (!this.state.isOpen) {
-            classNames.push('stream-menu-closed');
-        }
-
-        return classNames;
-    }
-
-    onToggle(e) {
-        this.state.isOpen = !this.state.isOpen;
-        this.setState(this.state);
-
-        e.preventDefault();
-        return false;
-    }
-
-    render() {
-        let choices = [];
-
-        for (let choice in this.props.schema.child_blocks) {
-            let schema = this.props.schema.child_blocks[choice];
-
-            let onClick = e => {
-                this.props.onAddItem(choice);
-
-                this.state.isOpen = false;
-                this.setState(this.state);
-
-                e.preventDefault();
-                return false;
-            }
-
-            choices.push(
-                <li key={choice}>
-                    <button type="button" className={`action-add-block-h2 icon icon-${schema.icon ? schema.icon : 'placeholder'}`} onClick={onClick}><span>{schema.label}</span> </button>
-                </li>
-            );
-        }
-
-        let menu = [];
-        if (this.state.isOpen) {
-            menu = <div key="menu" className="stream-menu-inner">
-                <ul>
-                    {choices}
-                </ul>
-            </div>
-        }
-
-        return <div className={this.getClassNames().join(' ')} id={this.props.id}>
-            <a className="toggle" onClick={e => this.onToggle(e)}><span>Insert block</span></a>
-            <React.addons.CSSTransitionGroup transitionName="stream-menu" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-                {menu}
-            </React.addons.CSSTransitionGroup>
-        </div>;
-    }
-}
 
 class StreamChild extends React.Component {
     render() {
-        let isDeleted = this.props.isDeleted ? this.props.isDeleted : '';
-        let actionButtons = [];
+        const isDeleted = this.props.isDeleted ? this.props.isDeleted : '';
+        const actionButtons = [];
 
         if (!this.props.isFirst) {
             actionButtons.push(<button key="moveup" type="button" id={`${this.props.path}-moveup`} title="Move up" className="button icon text-replace icon-order-up" onClick={this.props.onMoveUpItem}>Move up</button>);
@@ -166,51 +100,63 @@ class StreamChild extends React.Component {
 }
 
 export class StreamBlock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: props.value,
+        }
+    }
+
     newChildBlock(type, position) {
-        this.props.store.dispatch({
-            type: 'NEW_CHILD_BLOCK',
-            path: this.props.path,
-            position: position,
-            blockType: type,
+        this.setState({
+            value: this.props.store.dispatch({
+                        type: 'NEW_CHILD_BLOCK',
+                        path: this.props.path,
+                        position: position,
+                        blockType: type,
+                    }),
         });
     }
 
     deleteChildBlock(position) {
-        this.props.store.dispatch({
-            type: 'DELETE_CHILD_BLOCK',
-            path: this.props.path,
-            position: position,
+        this.setState({
+            value: this.props.store.dispatch({
+                        type: 'DELETE_CHILD_BLOCK',
+                        position: position,
+                    }),
         });
     }
 
     moveChildBlock(position, to) {
-        this.props.store.dispatch({
-            type: 'MOVE_CHILD_BLOCK',
-            path: this.props.path,
-            position: position,
-            to: to,
+        this.setState({
+            value: this.props.store.dispatch({
+                        type: 'MOVE_CHILD_BLOCK',
+                        path: this.props.path,
+                        position: position,
+                        to: to,
+                    }),
         });
     }
 
     render() {
-        let childBlocks = [];
+        console.log(this.props);
+        const childBlocks = [];
 
         let countDeleted = 0;
-        for (let id in this.props.value) {
-            if(this.props.value[id].isDeleted) {
+        for (let id in this.state.value) {
+            if(this.state.value[id].isDeleted) {
                 countDeleted++;
             }
         }
 
-
-        for (let id in this.props.value) {
-            let path = `${this.props.path}-${id}`;
-            let type = this.props.value[id].type;
-            let value = this.props.value[id].value;
-            let schema = this.props.schema.child_blocks[type];
-            let isDeleted = this.props.value[id].isDeleted;
-            let isFirst = id == 0 && !isDeleted;
-            let isLast = id == this.props.value.length - (countDeleted + 1);
+        for (let id in this.state.value) {
+            const path = `${this.props.path}-${id}`;
+            const type = this.state.value[id].type;
+            const value = this.state.value[id].value;
+            const schema = this.props.schema;
+            const isDeleted = this.state.value[id].isDeleted;
+            const isFirst = id == 0 && !isDeleted;
+            const isLast = id == this.state.value.length - (countDeleted + 1);
 
             childBlocks.push(<StreamChild
                 key={id}
@@ -234,7 +180,7 @@ export class StreamBlock extends React.Component {
 
         return <div className="field block_field block_widget ">
             <div className="field-content">
-                <div className="input  ">
+                <div className="input">
                     <div className="sequence-container sequence-type-stream">
                         <input type="hidden" name="body-count" id="body-count" value={childBlocks.length} />
                         { ((childBlocks.length - countDeleted) < this.props.schema.maxNum) ? (

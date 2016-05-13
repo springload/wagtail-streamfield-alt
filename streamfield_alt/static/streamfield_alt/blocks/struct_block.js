@@ -9,8 +9,8 @@ export function structBlockReducerBuilder(schema) {
             // Action is for this block
         } else {
             // Action is for a child block
-            let fieldName = action.pathComponents[0];
-            let newAction = Object.assign({}, action, {
+            const fieldName = action.pathComponents[0];
+            const newAction = Object.assign({}, action, {
                 pathComponents: action.pathComponents.slice(1),
             });
 
@@ -26,12 +26,12 @@ export function structBlockReducerBuilder(schema) {
 
 export class StructBlock extends React.Component {
     render() {
-        let fields = [];
+        const fields = [];
 
         for (let field in this.props.value) {
-            let value = this.props.value[field];
-            let schema = this.props.schema.child_blocks[field];
-            let path = `${this.props.path}-${field}`;
+            const value = this.props.value[field];
+            const schema = this.props.schema.child_blocks[field];
+            const path = `${this.props.path}-${field}`;
 
             fields.push(
                 <li key={field}>

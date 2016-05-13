@@ -3,26 +3,26 @@ import * as React from 'react';
 import {StreamBlock, streamBlockReducerBuilder} from './stream_block';
 import {StructBlock, structBlockReducerBuilder} from './struct_block';
 import {
-    CharBlock, 
-    TextBlock, 
-    URLBlock, 
-    DateBlock, 
-    DateTimeBlock, 
-    PageChooserBlock, 
-    DocumentChooserBlock, 
-    SnippetChooserBlock, 
-    TimeBlock, 
-    BooleanBlock, 
-    RawHTMLBlock, 
-    RichTextBlock, 
-    ImageChooserBlock, 
-    ImageFormatChoiceBlock, 
-    ChoiceBlock, 
+    CharBlock,
+    TextBlock,
+    URLBlock,
+    DateBlock,
+    DateTimeBlock,
+    PageChooserBlock,
+    DocumentChooserBlock,
+    SnippetChooserBlock,
+    TimeBlock,
+    BooleanBlock,
+    RawHTMLBlock,
+    RichTextBlock,
+    ImageChooserBlock,
+    ImageFormatChoiceBlock,
+    ChoiceBlock,
     fieldBlockReducerBuilder
 } from './field_block';
 
 
-let BLOCK_TYPES_REGISTRY = {
+const BLOCK_TYPES_REGISTRY = {
     'wagtail.core.StreamBlock': StreamBlock,
     'wagtail.core.StructBlock': StructBlock,
     'wagtail.core.CharBlock': CharBlock,
@@ -41,7 +41,7 @@ let BLOCK_TYPES_REGISTRY = {
     'wagtail.wagtailsnippets.SnippetChooserBlock': SnippetChooserBlock,
 };
 
-let BLOCK_REDUCER_BUILDERS_REGISTRY = {
+const BLOCK_REDUCER_BUILDERS_REGISTRY = {
     'wagtail.core.StreamBlock': streamBlockReducerBuilder,
     'wagtail.core.StructBlock': structBlockReducerBuilder,
     'wagtail.core.CharBlock': fieldBlockReducerBuilder,
@@ -69,13 +69,12 @@ class UnknownBlock extends React.Component {
 
 
 export function renderBlock(store, value, schema, path) {
-    let Component = BLOCK_TYPES_REGISTRY[schema.type] || UnknownBlock;
+    const Component = BLOCK_TYPES_REGISTRY[schema.type] || UnknownBlock;
     return <Component store={store} value={value} schema={schema} path={path} />;
 }
 
 
 export function getBlockReducer(schema) {
-    let builder = BLOCK_REDUCER_BUILDERS_REGISTRY[schema.type] || ((schema) => ((state, action) => state));
-
+    const builder = BLOCK_REDUCER_BUILDERS_REGISTRY[schema.type] || ((schema) => ((state, action) => state));
     return builder(schema);
 }

@@ -5,7 +5,7 @@ module.exports = {
     entry: './streamfield_alt/static/streamfield_alt/streamfield.js',
     output: {
       libraryTarget: 'var',
-      library: 'StreamFieldAlt',
+      library: 'StreamFieldReact',
       path: 'streamfield_alt/static/streamfield_alt/compiled/',
       filename: 'streamfield.bundle.js'
     },
@@ -21,8 +21,8 @@ module.exports = {
             }
         ]
     },
-    externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-    }
+    // externals: {
+    //     react: 'React',
+    //     'react-dom': 'ReactDOM',
+    // }
 }
