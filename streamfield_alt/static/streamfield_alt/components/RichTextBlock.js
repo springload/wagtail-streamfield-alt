@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class RichTextBlock extends FieldBlock {
+export default class RichTextBlock extends FieldBlock {
     componentDidMount() {
         makeRichTextEditable(`${this.props.path}-value`);
     }

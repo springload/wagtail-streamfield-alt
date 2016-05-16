@@ -3,6 +3,10 @@ import StreamMenu from './StreamMenu';
 import { BLOCK_TYPES_REGISTRY } from '../config';
 
 export default class StreamChild extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     renderBlock(value, schema, path) {
         const Component = BLOCK_TYPES_REGISTRY[schema.type];
         return <Component value={value} schema={schema} path={path} />;

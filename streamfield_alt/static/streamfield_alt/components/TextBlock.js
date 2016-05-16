@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class TextBlock extends FieldBlock {
+export default class TextBlock extends FieldBlock {
     componentDidMount() {
         autosize($(`#${this.props.path}-value`));
     }

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { StreamBlock } from '../components/StreamBlock'
+import StreamBlock from '../components/StreamBlock'
 import * as actions from '../actions';
 
 const mapStateToProps = (state) => {

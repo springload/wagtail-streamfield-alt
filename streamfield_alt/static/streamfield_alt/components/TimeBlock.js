@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class TimeBlock extends FieldBlock {
+export default class TimeBlock extends FieldBlock {
     componentDidMount() {
         initTimeChooser(`${this.props.path}-value`);
     }

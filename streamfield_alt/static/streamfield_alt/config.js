@@ -18,7 +18,7 @@ import ChoiceBlock from './components/ChoiceBlock';
 
 export const BLOCK_TYPES_REGISTRY = {
     'wagtail.core.StreamBlock': StreamBlock,
-    'wagtail.core.StructBlock': StructBlock,
+    //'wagtail.core.StructBlock': StructBlock,
     'wagtail.core.CharBlock': CharBlock,
     'wagtail.core.TextBlock': TextBlock,
     'wagtail.core.URLBlock': URLBlock,

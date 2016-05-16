@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class DateBlock extends FieldBlock {
+export default class DateBlock extends FieldBlock {
     componentDidMount() {
         initDateChooser(`${this.props.path}-value`, {"dayOfWeekStart": 1});
     }

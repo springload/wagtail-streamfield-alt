@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class DocumentChooserBlock extends FieldBlock {
+export default class DocumentChooserBlock extends FieldBlock {
     componentDidMount() {
         createDocumentChooser(`${this.props.path}-value`);
     }

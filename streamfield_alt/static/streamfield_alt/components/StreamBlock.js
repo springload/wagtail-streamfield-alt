@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import StreamChild from './StreamChild';
 import StreamMenu from './StreamMenu';
 
-export class StreamBlock extends React.Component {
+export default class StreamBlock extends React.Component {
     constructor(props) {
         super(props);
     }

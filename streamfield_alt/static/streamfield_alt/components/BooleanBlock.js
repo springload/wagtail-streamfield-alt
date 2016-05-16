@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class BooleanBlock extends FieldBlock {
+export default class BooleanBlock extends FieldBlock {
     render() {
         return <div className={`field boolean_field widget-checkbox_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">

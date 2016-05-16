@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class SnippetChooserBlock extends FieldBlock {
+export default class SnippetChooserBlock extends FieldBlock {
     componentDidMount() {
         createSnippetChooser(`${this.props.path}-value`, `${this.props.schema.app}/${this.props.schema.model}`);
     }

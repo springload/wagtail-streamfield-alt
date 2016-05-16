@@ -1,6 +1,7 @@
+import * as React from 'react';
 import FieldBlock from './FieldBlock'
 
-export class PageChooserBlock extends FieldBlock {
+export default class PageChooserBlock extends FieldBlock {
     componentDidMount() {
         createPageChooser(`${this.props.path}-value`, [], this.props.can_choose_root);
     }
