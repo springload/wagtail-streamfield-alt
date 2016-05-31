@@ -2,3 +2,6 @@
 /wagtail_streamfield_alt.egg-info
 /node_modules
 /npm-debug.log
+streamfield_alt/static/streamfield_alt/compiled/streamfield.bundle.js
+streamfield_alt/static/streamfield_alt/vendor/react-dom.js
+streamfield_alt/static/streamfield_alt/vendor/react-with-addons.js
