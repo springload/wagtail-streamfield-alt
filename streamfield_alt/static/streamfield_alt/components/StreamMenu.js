@@ -35,7 +35,7 @@ export default class StreamMenu extends React.Component {
             const schema = this.props.schema.child_blocks[choice];
 
             const onClick = e => {
-                this.props.onAddItem(choice, this.props.index, this.props.schema);
+                this.props.newChildBlock(choice, this.props.index, this.props.schema);
 
                 this.state.isOpen = false;
                 this.setState(this.state);

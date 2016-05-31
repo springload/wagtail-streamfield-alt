@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import StreamChild from './StreamChild';
-import StreamMenu from './StreamMenu';
+import StreamMenu from '../containers/StreamMenu';
 
 export default class StreamBlock extends React.Component {
     constructor(props) {
@@ -56,9 +56,8 @@ export default class StreamBlock extends React.Component {
                         { ((childBlocks.length - this.props.deletedItems) < this.props.maxNum) ? (
                         <StreamMenu
                             id={`${this.props.path}-prependmenu`}
-                            index={this.props.index}
+                            index={0}
                             schema={this.props.schema}
-                            onAddItem={(type, id, schema) => this.props.newChildBlock(type, 0, schema)}
                         />
                         ) : null }
 

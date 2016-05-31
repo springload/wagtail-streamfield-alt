@@ -1,5 +1,5 @@
 import * as React from 'react';
-import StreamMenu from './StreamMenu';
+import StreamMenu from '../containers/StreamMenu';
 import { BLOCK_TYPES_REGISTRY } from '../config';
 
 export default class StreamChild extends React.Component {
@@ -42,9 +42,8 @@ export default class StreamChild extends React.Component {
             { ((this.props.streamFieldValue.length - this.props.deletedItems) < this.props.maxNum) ? (
                 <StreamMenu
                     id={`${this.props.path}-appendmenu`}
-                    index={this.props.index}
+                    index={this.props.index + 1}
                     schema={this.props.parentSchema}
-                    onAddItem={this.props.onAddItem}
                 />
             ) : null }
         </li>;
