@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import StreamField from './containers/StreamField';
+import IntelligentStreamBlock from './containers/IntelligentStreamBlock';
 import configureStore from './store/configureStore';
 
 export function init(element, schema, minNum=null, maxNum=null) {
@@ -14,7 +14,7 @@ export function init(element, schema, minNum=null, maxNum=null) {
 
     render(
         <Provider store={ store }>
-            <StreamField initBlocks={data} schema={schema} minNum={minNum} maxNum={maxNum} path="body" />
+            <IntelligentStreamBlock initBlocks={data} schema={schema} minNum={minNum} maxNum={maxNum} path="body" />
         </Provider>,
         element.querySelector('div.streamfield-alt-ui')
     );

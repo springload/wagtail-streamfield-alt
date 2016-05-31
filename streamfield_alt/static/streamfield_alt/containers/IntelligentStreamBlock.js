@@ -14,12 +14,6 @@ const mapDispatchToProps = (dispatch) => {
     setInitialState: (blocks) => {
         dispatch(actions.setInitialState(blocks))
     },
-    deleteChildBlock: (position, deletedItems) => {
-        dispatch(actions.deleteChildBlock(position, deletedItems))
-    },
-    moveChildBlock: (position, to) => {
-        dispatch(actions.moveChildBlock(position, to))
-    },
   }
 }
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import StreamChild from './StreamChild';
-import StreamMenu from '../containers/StreamMenu';
+import IntelligentStreamChild from '../containers/IntelligentStreamChild';
+import IntelligentStreamMenu from '../containers/IntelligentStreamMenu';
 
 export default class StreamBlock extends React.Component {
     constructor(props) {
@@ -25,9 +25,9 @@ export default class StreamBlock extends React.Component {
             const schema = this.props.schema.child_blocks[type];
             const isDeleted = this.props.blocks[id].isDeleted;
             const isFirst = id == 0 && !isDeleted;
-            const isLast = id == this.props.blocks.length - (this.props.deletedItems + 1);
+            const isLast = id == (this.props.blocks.length - (this.props.deletedItems + 1));
 
-            childBlocks.push(<StreamChild
+            childBlocks.push(<IntelligentStreamChild
                 key={id}
                 index={id}
                 path={path}
@@ -35,14 +35,9 @@ export default class StreamBlock extends React.Component {
                 value={value}
                 schema={schema}
                 parentSchema={this.props.schema}
-                onAddItem={(type, id, schema) => this.props.newChildBlock(type, parseInt(id) + 1, schema)}
                 isFirst={isFirst}
                 isLast={isLast}
                 isDeleted={isDeleted}
-                onDeleteItem={() => this.props.deleteChildBlock(parseInt(id)), this.props.deletedItems}
-                onMoveUpItem={() => this.props.moveChildBlock(parseInt(id), parseInt(id) - 1)}
-                onMoveDownItem={() => this.props.moveChildBlock(parseInt(id), parseInt(id) + 1)}
-                deletedItems={this.props.deletedItems}
                 streamFieldValue={this.props.blocks}
                 maxNum={this.props.maxNum}
             />);
@@ -52,13 +47,19 @@ export default class StreamBlock extends React.Component {
             <div className="field-content">
                 <div className="input">
                     <div className="sequence-container sequence-type-stream">
-                        <input type="hidden" name="body-count" id="body-count" value={this.props.blocks ? this.props.blocks.length : this.props.initBlocks.length} />
-                        { ((childBlocks.length - this.props.deletedItems) < this.props.maxNum) ? (
-                        <StreamMenu
-                            id={`${this.props.path}-prependmenu`}
-                            index={0}
-                            schema={this.props.schema}
+                        <input 
+                        type="hidden" 
+                        name="body-count" 
+                        id="body-count" 
+                        value={this.props.blocks ? this.props.blocks.length : this.props.initBlocks.length} 
                         />
+                        
+                        { ((childBlocks.length - this.props.deletedItems) < this.props.maxNum) ? (
+                            <IntelligentStreamMenu
+                                id={`${this.props.path}-prependmenu`}
+                                index={0}
+                                schema={this.props.schema}
+                            />
                         ) : null }
 
                         <div className="sequence-container-inner">
