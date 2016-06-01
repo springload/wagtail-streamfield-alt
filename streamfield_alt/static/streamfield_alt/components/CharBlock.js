@@ -7,8 +7,8 @@ export default class CharBlock extends FieldBlock {
             <div className="field-content">
                 <div className="input">
                     <input 
-                    id={`${this.props.path}-value`} 
-                    name={`${this.props.path}-value`} 
+                    id={`${this.props.path}`} 
+                    name={`${this.props.path}`} 
                     placeholder={this.props.schema.label} 
                     defaultValue={this.props.value} 
                     type="text" 

@@ -3,7 +3,7 @@ import FieldBlock from './FieldBlock'
 
 export default class TextBlock extends FieldBlock {
     componentDidMount() {
-        autosize($(`#${this.props.path}-value`));
+        autosize($(`#${this.props.path}`));
     }
 
     render() {
@@ -14,8 +14,8 @@ export default class TextBlock extends FieldBlock {
                     style={{overflow: 'hidden', wordWrap: 'break-word', resize: 'horizontal', height: '50px'}} 
                     data-autosize-on="true" 
                     cols="40" 
-                    id={`${this.props.path}-value`} 
-                    name={`${this.props.path}-value`} 
+                    id={`${this.props.path}`} 
+                    name={`${this.props.path}`} 
                     placeholder={this.props.schema.label} 
                     rows="1" 
                     defaultValue={this.props.value} 

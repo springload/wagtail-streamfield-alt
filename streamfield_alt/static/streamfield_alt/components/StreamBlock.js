@@ -20,6 +20,7 @@ export default class StreamBlock extends React.Component {
 
         for (let id in this.props.blocks) {
             const path = `${this.props.path}-${id}`;
+            const pathValue = `${this.props.path}-${id}-value`;
             const type = this.props.blocks[id].type;
             const value = this.props.blocks[id].value;
             const schema = this.props.schema.child_blocks[type];

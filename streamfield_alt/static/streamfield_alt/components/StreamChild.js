@@ -9,7 +9,7 @@ export default class StreamChild extends React.Component {
 
     renderBlock(value, schema, path) {
         const Component = BLOCK_TYPES_REGISTRY[schema.type];
-        return <Component value={value} schema={schema} path={path} />;
+        return <Component value={value} schema={schema} path={`${path}-value`} />;
     }
 
     render() {
