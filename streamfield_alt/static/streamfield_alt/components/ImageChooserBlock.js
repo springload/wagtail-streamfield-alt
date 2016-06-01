@@ -28,7 +28,7 @@ export default class ImageChooserBlock extends FieldBlock {
                             <button type="button" className="button action-choose button-small button-secondary">Choose an image</button>
                         </div>
                     </div>
-                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} value={this.props.value === null ? '' : this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
+                    <input id={`${this.props.path}-value`} name={`${this.props.path}-value`} placeholder={this.props.schema.label} defaultValue={this.props.value} type="hidden" onChange={e => this.setValue(e.target.value)} />
                 </div>
             </div>
         </div>
