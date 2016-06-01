@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import IntelligentStreamMenu from '../containers/IntelligentStreamMenu';
 import { BLOCK_TYPES_REGISTRY } from '../config';
 

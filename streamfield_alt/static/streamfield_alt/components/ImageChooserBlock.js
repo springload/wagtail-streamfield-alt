@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import FieldBlock from './FieldBlock'
 
 export default class ImageChooserBlock extends FieldBlock {

@@ -1,4 +1,4 @@
-// import * as React from 'react';
+// import React from 'react';
 
 // import {StreamBlock, streamBlockReducerBuilder} from './stream_block';
 // import {StructBlock, structBlockReducerBuilder} from './struct_block';
