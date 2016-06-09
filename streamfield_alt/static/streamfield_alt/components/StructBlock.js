@@ -10,13 +10,14 @@ export default class StructBlock extends React.Component {
     render() {
         const fields = [];
 
-        for (let field in this.props.value) {
-            const value = this.props.value[field];
-            const schema = this.props.schema.child_blocks[field];
-            const path = `${this.props.path}-${field}`;
+        for (let idx in this.props.value) {
+            const field = this.props.value[idx];
+            const value = field.value;
+            const schema = this.props.schema.child_blocks[field.type];
+            const path = `${this.props.path}-${field.type}`;
 
             fields.push(
-                <li key={field}>
+                <li key={path}>
                     <label for={path}>{schema.label}</label>
                     {this.renderBlock(value, schema, path)}
                 </li>

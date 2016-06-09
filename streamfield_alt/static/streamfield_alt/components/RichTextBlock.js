@@ -3,7 +3,7 @@ import FieldBlock from './FieldBlock'
 
 export default class RichTextBlock extends FieldBlock {
     componentDidMount() {
-        makeRichTextEditable(`${this.props.path}`);
+        makeHalloRichTextEditable(`${this.props.path}`);
     }
 
     render() {

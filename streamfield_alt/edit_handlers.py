@@ -21,9 +21,31 @@ class BaseStreamFieldPanel(BaseFieldPanel):
 
         return classes
 
+    def parse_blocks(self, json_obj, source_obj):
+        to_arr = []
+        if hasattr(source_obj, 'child_blocks') and source_obj.child_blocks:
+            for child_name, child_block in source_obj.child_blocks.items():
+                to_arr.append(self.parse_blocks(json_obj, child_block))
+            return to_arr
+        else:
+            return {
+                'type': source_obj.name,
+                'value': json_obj['value'][source_obj.name]
+            }
+
     def get_data_json(self):
         value = self.bound_field.value()
-        return json.dumps(self.block_def.get_prep_value(value), cls=DjangoJSONEncoder)
+        json_value = self.block_def.get_prep_value(value)
+
+        # this is to keep the order of children on complex blocks
+        for obj in json_value:
+            if isinstance(obj['value'], dict):
+                source_obj = self.block_def.child_blocks[obj['type']]
+                if obj['type'] == source_obj.name:
+                    values = self.parse_blocks(json_obj=obj, source_obj=source_obj)
+                    obj['value'] = values
+
+        return json.dumps(json_value, cls=DjangoJSONEncoder)
 
     @classmethod
     def get_schema_json(cls):
