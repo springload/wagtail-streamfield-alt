@@ -1,5 +1,6 @@
 import {getBlockReducer} from '../blocks';
 import { combineReducers } from 'redux';
+import { uuid } from '../utils/';
 
 const stateDefaults = {
   blocks: [],
@@ -23,6 +24,8 @@ const newChildBlock = (state, action) => {
     const newBlock = {
         type: action.blockType,
         value: action.schema.child_blocks[action.blockType].default_value,
+        errors: [],
+        uuid: uuid(),
     };
 
     let blocks = [...state.blocks];

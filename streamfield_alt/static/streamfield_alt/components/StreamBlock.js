@@ -17,9 +17,9 @@ export default class StreamBlock extends React.Component {
 
     render() {
         let childBlocks = [];
-
         for (let id in this.props.blocks) {
             const path = `${this.props.path}-${id}`;
+            const uuid = this.props.blocks[id].uuid;
             const pathValue = `${this.props.path}-${id}-value`;
             const type = this.props.blocks[id].type;
             const value = this.props.blocks[id].value;
@@ -30,7 +30,7 @@ export default class StreamBlock extends React.Component {
             const isLast = id == (this.props.blocks.length - (this.props.deletedItems + 1));
 
             childBlocks.push(<IntelligentStreamChild
-                key={id}
+                key={uuid}
                 index={id}
                 path={path}
                 type={type}

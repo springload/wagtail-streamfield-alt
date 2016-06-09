@@ -7,6 +7,8 @@ from wagtail.wagtailadmin.edit_handlers import BaseFieldPanel
 
 from .schema import get_block_schema
 
+import uuid
+
 
 class BaseStreamFieldPanel(BaseFieldPanel):
     object_template = "streamfield_alt/streamfield.html"
@@ -45,6 +47,7 @@ class BaseStreamFieldPanel(BaseFieldPanel):
                 'type': source_obj.name,
                 'value': value,
                 'errors': error,
+                'uuid': uuid.uuid4(),
             }
 
     def get_data_json(self):
