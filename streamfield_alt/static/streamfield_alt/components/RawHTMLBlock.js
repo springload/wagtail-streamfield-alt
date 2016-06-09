@@ -18,6 +18,12 @@ export default class RawHTMLBlock extends FieldBlock {
                     </textarea>
                     <span></span>
                 </div>
+                <p className="error-message">
+                    { this.props.errors ? this.props.errors.map((error) => (
+                        <span key={`${this.props.path}-error`}>{error}</span>
+                        ))
+                     : null}
+                </p>
             </div>
         </div>;
     }

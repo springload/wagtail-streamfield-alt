@@ -1,6 +1,7 @@
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.exceptions import ValidationError
 
 from wagtail.wagtailadmin.edit_handlers import BaseFieldPanel
 
@@ -23,14 +24,27 @@ class BaseStreamFieldPanel(BaseFieldPanel):
 
     def parse_blocks(self, json_obj, source_obj):
         to_arr = []
-        if hasattr(source_obj, 'child_blocks') and source_obj.child_blocks:
+        if isinstance(json_obj['value'], dict) and hasattr(source_obj, 'child_blocks') and source_obj.child_blocks:
             for child_name, child_block in source_obj.child_blocks.items():
                 to_arr.append(self.parse_blocks(json_obj, child_block))
             return to_arr
         else:
+            if isinstance(json_obj['value'], dict):
+                value = json_obj['value'][source_obj.name]
+            else:
+                value = json_obj['value']
+
+            # TODO: find a better way to access the error messages for each field...
+            error = []
+            try:
+                source_obj.field.clean(value)
+            except ValidationError as e:
+                error = e.messages
+
             return {
                 'type': source_obj.name,
-                'value': json_obj['value'][source_obj.name]
+                'value': value,
+                'errors': error,
             }
 
     def get_data_json(self):
@@ -39,11 +53,13 @@ class BaseStreamFieldPanel(BaseFieldPanel):
 
         # this is to keep the order of children on complex blocks
         for obj in json_value:
-            if isinstance(obj['value'], dict):
-                source_obj = self.block_def.child_blocks[obj['type']]
-                if obj['type'] == source_obj.name:
-                    values = self.parse_blocks(json_obj=obj, source_obj=source_obj)
+            source_obj = self.block_def.child_blocks[obj['type']]
+            if obj['type'] == source_obj.name:
+                values = self.parse_blocks(json_obj=obj, source_obj=source_obj)
+                if isinstance(obj['value'], dict):
                     obj['value'] = values
+                else:
+                    obj.update(values)
 
         return json.dumps(json_value, cls=DjangoJSONEncoder)
 

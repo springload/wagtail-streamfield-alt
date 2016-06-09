@@ -37,6 +37,12 @@ export default class ImageChooserBlock extends FieldBlock {
                     onChange={e => this.setValue(e.target.value)} 
                     />
                 </div>
+                <p className="error-message">
+                    { this.props.errors ? this.props.errors.map((error) => (
+                        <span key={`${this.props.path}-error`}>{error}</span>
+                        ))
+                     : null}
+                </p>
             </div>
         </div>
     }

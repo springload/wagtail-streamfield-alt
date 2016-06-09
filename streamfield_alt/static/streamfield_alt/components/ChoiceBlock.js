@@ -20,6 +20,12 @@ export default class ChoiceBlock extends FieldBlock {
                     </select>
                     <span></span>
                 </div>
+                <p className="error-message">
+                    { this.props.errors ? this.props.errors.map((error) => (
+                        <span key={`${this.props.path}-error`}>{error}</span>
+                        ))
+                     : null}
+                </p>
             </div>
         </div>;
     }
