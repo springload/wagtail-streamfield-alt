@@ -26,11 +26,15 @@ def get_block_schema(block):
         }
     elif isinstance(block, blocks.StructBlock):
         child_blocks = OrderedDict()
-        default_value = OrderedDict()
+        default_value = []
         for name, child_block in block.child_blocks.items():
             child_blocks[name] = get_block_schema(child_block)
-            default_value[name] = get_block_schema(child_block)['default_value']
+            default_value.append({
+                'type': name,
+                'value': get_block_schema(child_block)['default_value'],
+            })
 
+        print(default_value)
         return {
             'type': 'wagtail.core.StructBlock',
             'label': block.label,
