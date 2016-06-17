@@ -7,9 +7,15 @@ export default class StreamChild extends React.Component {
         super(props);
     }
 
-    renderBlock(value, schema, path, errors) {
+    renderBlock(value, schema, path, errors, preview) {
         const Component = BLOCK_TYPES_REGISTRY[schema.type];
-        return <Component value={value} schema={schema} path={`${path}-value`} errors={errors} />;
+        return <Component 
+            value={value} 
+            schema={schema} 
+            path={`${path}-value`} 
+            errors={errors} 
+            preview={preview}
+        />;
     }
 
     render() {
@@ -72,7 +78,13 @@ export default class StreamChild extends React.Component {
                 </div>
             </div>
             <div className="sequence-member-inner ">
-                {this.renderBlock(this.props.value, this.props.schema, this.props.path, this.props.errors)}
+                {this.renderBlock(
+                    this.props.value,
+                    this.props.schema,
+                    this.props.path,
+                    this.props.errors,
+                    this.props.preview
+                )}
             </div>
             { ((this.props.streamFieldValue.length - this.props.deletedItems) < this.props.maxNum) ? (
                 <IntelligentStreamMenu

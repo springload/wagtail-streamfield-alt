@@ -34,7 +34,6 @@ def get_block_schema(block):
                 'value': get_block_schema(child_block)['default_value'],
             })
 
-        print(default_value)
         return {
             'type': 'wagtail.core.StructBlock',
             'label': block.label,

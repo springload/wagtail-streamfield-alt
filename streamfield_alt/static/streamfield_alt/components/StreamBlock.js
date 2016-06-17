@@ -23,6 +23,7 @@ export default class StreamBlock extends React.Component {
             const pathValue = `${this.props.path}-${id}-value`;
             const type = this.props.blocks[id].type;
             const value = this.props.blocks[id].value;
+            const preview = this.props.blocks[id].preview;
             const errors = this.props.blocks[id].errors;
             const schema = this.props.schema.child_blocks[type];
             const isDeleted = this.props.blocks[id].isDeleted;
@@ -43,6 +44,7 @@ export default class StreamBlock extends React.Component {
                 isDeleted={isDeleted}
                 streamFieldValue={this.props.blocks}
                 maxNum={this.props.maxNum}
+                preview={preview}
             />);
         }
 

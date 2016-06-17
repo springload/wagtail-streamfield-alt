@@ -7,12 +7,13 @@ export default class SnippetChooserBlock extends FieldBlock {
     }
 
     render() {
+        const snippet = this.props.preview ? this.props.preview : '';
         return <div className={`field model_choice_field widget-admin_snippet_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
                     <div id={`${this.props.path}-chooser`} className={`chooser snippet-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
-                            <span className="title"></span>
+                            <span className="title">{snippet}</span>
                             <ul className="actions">
                                 <li>
                                     <button type="button" className="button action-choose button-small button-secondary">Choose another snippet</button>

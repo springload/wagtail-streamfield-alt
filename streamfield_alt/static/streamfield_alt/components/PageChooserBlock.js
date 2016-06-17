@@ -7,12 +7,13 @@ export default class PageChooserBlock extends FieldBlock {
     }
 
     render() {
+        const page = this.props.preview ? this.props.preview : '';
         return <div className={`field model_choice_field widget-admin_page_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
                     <div id={`${this.props.path}-chooser`} className={`chooser page-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
-                            <span className="title"></span>
+                            <span className="title">{page}</span>
                             <ul className="actions">
                                 <li>
                                     <button type="button" className="button action-choose button-small button-secondary">Choose another page</button>

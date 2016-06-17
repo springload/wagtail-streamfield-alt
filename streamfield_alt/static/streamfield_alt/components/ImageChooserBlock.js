@@ -7,13 +7,14 @@ export default class ImageChooserBlock extends FieldBlock {
     }
 
     render() {
+        const image = this.props.preview ? this.props.preview : '';
         return <div className={`field model_choice_field widget-admin_image_chooser fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
                     <div id={`${this.props.path}-chooser`} className={`chooser image-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
                                 <div className="preview-image">
-                                    <img alt="Wagtail collects insects by Margrit" className="show-transparency" src="" height="102" width="165" />
+                                    <img alt="Wagtail collects insects by Margrit" className="show-transparency" src={image} height="102" width="165" />
                                 </div>
                             <ul className="actions">
                                 <li>

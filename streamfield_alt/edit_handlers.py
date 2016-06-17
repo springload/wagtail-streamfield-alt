@@ -24,11 +24,11 @@ class BaseStreamFieldPanel(BaseFieldPanel):
 
         return classes
 
-    def parse_blocks(self, json_obj, source_obj):
+    def parse_blocks(self, json_obj, source_obj, raw_value):
         to_arr = []
         if isinstance(json_obj['value'], dict) and hasattr(source_obj, 'child_blocks') and source_obj.child_blocks:
             for child_name, child_block in source_obj.child_blocks.items():
-                to_arr.append(self.parse_blocks(json_obj, child_block))
+                to_arr.append(self.parse_blocks(json_obj, child_block, raw_value))
             return to_arr
         else:
             if isinstance(json_obj['value'], dict):
@@ -43,22 +43,35 @@ class BaseStreamFieldPanel(BaseFieldPanel):
             except ValidationError as e:
                 error = e.messages
 
-            return {
+            final_dict = {
                 'type': source_obj.name,
                 'value': value,
                 'errors': error,
                 'uuid': uuid.uuid4(),
             }
 
+            # TODO: can we do this in a better way?
+            if source_obj.name == 'image':
+                final_dict['preview'] = raw_value.value.get('image').file.url
+            if source_obj.name == 'page':
+                final_dict['preview'] = raw_value.value.title
+            if source_obj.name == 'snippet':
+                final_dict['preview'] = str(raw_value.value)
+            if source_obj.name == 'document':
+                final_dict['preview'] = raw_value.value.title
+
+            return final_dict
+
     def get_data_json(self):
         value = self.bound_field.value()
         json_value = self.block_def.get_prep_value(value)
+        # import ipdb; ipdb.set_trace();
 
         # this is to keep the order of children on complex blocks
-        for obj in json_value:
+        for idx, obj in enumerate(json_value):
             source_obj = self.block_def.child_blocks[obj['type']]
             if obj['type'] == source_obj.name:
-                values = self.parse_blocks(json_obj=obj, source_obj=source_obj)
+                values = self.parse_blocks(json_obj=obj, source_obj=source_obj, raw_value=value[idx])
                 if isinstance(obj['value'], dict):
                     obj['value'] = values
                 else:
