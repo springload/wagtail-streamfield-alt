@@ -3,6 +3,7 @@ import FieldBlock from './FieldBlock'
 
 export default class BooleanBlock extends FieldBlock {
     render() {
+        const value = this.state.value !== undefined ? this.state.value : this.props.value;
         return <div className={`field boolean_field widget-checkbox_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
@@ -10,9 +11,10 @@ export default class BooleanBlock extends FieldBlock {
                     id={`${this.props.path}`} 
                     name={`${this.props.path}`} 
                     placeholder={this.props.schema.label} 
-                    type="checkbox" 
-                    onChange={e => this.setValue(e.target.value)} 
-                    defaultValue={this.props.value} 
+                    type="checkbox"
+                    onChange={(evt) => this.setValue(!value)}
+                    value={true}
+                    checked={value === true}
                     />
                     <span></span>
                 </div>
