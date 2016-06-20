@@ -7,7 +7,7 @@ export default function configureStore(initialState) {
     const middleware = [
         thunkMiddleware,
     ];
-    console.log(process.env.NODE_ENV)
+
     if (process.env.NODE_ENV !== 'production') {
         middleware.push(createLogger());
     }
