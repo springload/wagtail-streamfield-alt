@@ -6,8 +6,11 @@ import rootReducer from '../reducers';
 export default function configureStore(initialState) {
     const middleware = [
         thunkMiddleware,
-        createLogger(),
     ];
+    console.log(process.env.NODE_ENV)
+    if (process.env.NODE_ENV !== 'production') {
+        middleware.push(createLogger());
+    }
 
     const store = createStore(rootReducer, initialState, compose(
         applyMiddleware(...middleware),

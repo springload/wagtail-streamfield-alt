@@ -6,7 +6,7 @@ from wagtail.wagtailcore import hooks
 @hooks.register('insert_editor_js')
 def editor_js():
     files = [
-        'streamfield_alt/compiled/streamfield.bundle.js',
+        'streamfield_alt/js/streamfield.bundle.js',
     ]
 
     return ''.join(
@@ -17,4 +17,4 @@ def editor_js():
 
 @hooks.register('insert_editor_css')
 def editor_css():
-    return '<link rel="stylesheet" href="{0}">'.format(static('streamfield_alt/streamfield.css'))
+    return '<link rel="stylesheet" href="{0}">'.format(static('streamfield_alt/css/streamfield.css'))

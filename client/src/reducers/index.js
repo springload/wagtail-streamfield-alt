@@ -1,4 +1,3 @@
-import {getBlockReducer} from '../blocks';
 import { combineReducers } from 'redux';
 import { uuid } from '../utils/';
 

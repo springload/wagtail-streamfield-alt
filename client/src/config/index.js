@@ -1,19 +1,19 @@
-import StreamBlock from './components/StreamBlock';
-import StructBlock from './components/StructBlock';
-import CharBlock from './components/CharBlock';
-import TextBlock from './components/TextBlock';
-import URLBlock from './components/URLBlock';
-import DateBlock from './components/DateBlock';
-import DateTimeBlock from './components/DateTimeBlock';
-import PageChooserBlock from './components/PageChooserBlock';
-import DocumentChooserBlock from './components/DocumentChooserBlock';
-import SnippetChooserBlock from './components/SnippetChooserBlock';
-import TimeBlock from './components/TimeBlock';
-import BooleanBlock from './components/BooleanBlock';
-import RawHTMLBlock from './components/RawHTMLBlock';
-import RichTextBlock from './components/RichTextBlock';
-import ImageChooserBlock from './components/ImageChooserBlock';
-import ChoiceBlock from './components/ChoiceBlock';
+import StreamBlock from '../components/StreamBlock';
+import StructBlock from '../components/StructBlock';
+import CharBlock from '../components/CharBlock';
+import TextBlock from '../components/TextBlock';
+import URLBlock from '../components/URLBlock';
+import DateBlock from '../components/DateBlock';
+import DateTimeBlock from '../components/DateTimeBlock';
+import PageChooserBlock from '../components/PageChooserBlock';
+import DocumentChooserBlock from '../components/DocumentChooserBlock';
+import SnippetChooserBlock from '../components/SnippetChooserBlock';
+import TimeBlock from '../components/TimeBlock';
+import BooleanBlock from '../components/BooleanBlock';
+import RawHTMLBlock from '../components/RawHTMLBlock';
+import RichTextBlock from '../components/RichTextBlock';
+import ImageChooserBlock from '../components/ImageChooserBlock';
+import ChoiceBlock from '../components/ChoiceBlock';
 
 
 export const BLOCK_TYPES_REGISTRY = {

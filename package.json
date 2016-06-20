@@ -2,7 +2,8 @@
   "name": "wagtail-streamfield-alt",
   "version": "1.0.0",
   "scripts": {
-    "dev": "webpack -w"
+    "dev": "webpack --config ./client/webpack/webpack.dev.config.js",
+    "dist": "webpack --config ./client/webpack/webpack.prod.config.js"
   },
   "author": "Karl Hobley <karlhobley10@gmail.com>",
   "license": "BSD",
