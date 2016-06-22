@@ -16,7 +16,7 @@ export default class TimeBlock extends FieldBlock {
                     name={`${this.props.path}`} 
                     placeholder={this.props.schema.label} 
                     onChange={e => this.setValue(e.target.value)} 
-                    defaultValue={this.props.value} 
+                    defaultValue={this.props.preview} 
                     type="text" 
                     />
                     <span></span>

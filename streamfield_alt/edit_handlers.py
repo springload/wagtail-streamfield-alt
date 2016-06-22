@@ -59,7 +59,12 @@ class BaseStreamFieldPanel(BaseFieldPanel):
                 final_dict['preview'] = str(raw_value.value)
             if source_obj.name == 'document':
                 final_dict['preview'] = raw_value.value.title
-
+            if source_obj.name == 'datetime':
+                final_dict['preview'] = raw_value.value.strftime("%Y-%m-%d %H:%M")
+            if source_obj.name == 'date':
+                final_dict['preview'] = raw_value.value.strftime("%Y-%m-%d")
+            if source_obj.name == 'time':
+                final_dict['preview'] = raw_value.value.strftime("%H:%M")
             return final_dict
 
     def get_data_json(self):
