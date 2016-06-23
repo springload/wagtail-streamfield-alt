@@ -7,7 +7,7 @@ export default class RichTextBlock extends FieldBlock {
     }
 
     render() {
-        return <div className={`field char_field widget-rich_text_area fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
+        return <div className={`field char_field widget-hallo_rich_text_area fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
                     <textarea 
@@ -16,7 +16,7 @@ export default class RichTextBlock extends FieldBlock {
                     name={`${this.props.path}`} 
                     placeholder="Paragraph" 
                     rows="10" 
-                    defaultValue={this.props.value} 
+                    defaultValue={this.props.preview ? this.props.preview : this.props.value} 
                     onChange={e => this.setValue(e.target.value)} 
                     />
                 </div>

@@ -4,6 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.exceptions import ValidationError
 
 from wagtail.wagtailadmin.edit_handlers import BaseFieldPanel
+from wagtail.wagtailcore.rich_text import expand_db_html
 
 from .schema import get_block_schema
 
@@ -65,12 +66,15 @@ class BaseStreamFieldPanel(BaseFieldPanel):
                 final_dict['preview'] = raw_value.value.strftime("%Y-%m-%d")
             if source_obj.name == 'time':
                 final_dict['preview'] = raw_value.value.strftime("%H:%M")
+            if source_obj.name == 'intro' or source_obj.name == 'paragraph':
+                final_dict['preview'] = expand_db_html(raw_value.value.source, for_editor=True)
+            if source_obj.name == 'caption':
+                final_dict['preview'] = expand_db_html(raw_value.value.get('caption').source, for_editor=True)
             return final_dict
 
     def get_data_json(self):
         value = self.bound_field.value()
         json_value = self.block_def.get_prep_value(value)
-        # import ipdb; ipdb.set_trace();
 
         # this is to keep the order of children on complex blocks
         for idx, obj in enumerate(json_value):
