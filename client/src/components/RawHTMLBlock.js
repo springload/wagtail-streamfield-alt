@@ -8,11 +8,11 @@ export default class RawHTMLBlock extends FieldBlock {
                 <div className="input">
                     <textarea 
                     cols="40" 
-                    id={`${this.props.path}-html`} 
-                    name={`${this.props.path}-html`} 
+                    id={`${this.props.path}`} 
+                    name={`${this.props.path}`} 
                     placeholder={this.props.schema.label} 
                     rows="10" 
-                    defaultValue={this.props.value} 
+                    defaultValue={this.props.value}
                     onChange={e => this.setValue(e.target.value)}
                     >
                     </textarea>
