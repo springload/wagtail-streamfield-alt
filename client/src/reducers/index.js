@@ -1,11 +1,6 @@
 import { combineReducers } from 'redux';
 import { uuid } from '../utils/';
 
-const stateDefaults = {
-  blocks: [],
-  deletedItems: 0,
-}
-
 const setInitialState = (state, action) => {
     let deletedItems = 0;
     for (let id in action.blocks) {
@@ -61,7 +56,7 @@ const moveChildBlock = (state, action) => {
     });
 };
 
-export function streamField(state=stateDefaults, action) {
+export function streamField(state=[], action) {
     switch(action.type) {
         case 'SET_INITIAL_STATE':
             return setInitialState(state, action);
