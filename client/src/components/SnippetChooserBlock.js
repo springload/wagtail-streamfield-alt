@@ -1,6 +1,7 @@
 import React from 'react';
 import FieldBlock from './FieldBlock'
 import ErrorMessage from './ErrorMessage';
+import Actions from './Actions'
 
 export default class SnippetChooserBlock extends FieldBlock {
     componentDidMount() {
@@ -15,14 +16,7 @@ export default class SnippetChooserBlock extends FieldBlock {
                     <div id={`${this.props.path}-chooser`} className={`chooser snippet-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
                             <span className="title">{snippet}</span>
-                            <ul className="actions">
-                                <li>
-                                    <button type="button" className="button action-choose button-small button-secondary">Choose another snippet</button>
-                                </li>
-                                <li>
-                                    <a href={`/admin/snippets/${this.props.value}/edit`} className="button edit-link button-small button-secondary" target="_blank">Edit this snippet</a>
-                                </li>
-                            </ul>
+                            <Actions type="snippet" value={this.props.value} />
                         </div>
                         <div className="unchosen">
                             <button type="button" className="button action-choose button-small button-secondary">Choose {this.props.schema.model}</button>

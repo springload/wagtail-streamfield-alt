@@ -1,6 +1,7 @@
 import React from 'react';
 import FieldBlock from './FieldBlock'
 import ErrorMessage from './ErrorMessage';
+import Actions from './Actions'
 
 export default class ImageChooserBlock extends FieldBlock {
     componentDidMount() {
@@ -14,17 +15,10 @@ export default class ImageChooserBlock extends FieldBlock {
                 <div className="input">
                     <div id={`${this.props.path}-chooser`} className={`chooser image-chooser ${this.props.value === null ? 'blank' : ''}`}>
                         <div className="chosen">
-                                <div className="preview-image">
-                                    <img alt="Wagtail collects insects by Margrit" className="show-transparency" src={image} height="102" width="165" />
-                                </div>
-                            <ul className="actions">
-                                <li>
-                                    <button type="button" className="button action-choose button-small button-secondary">Choose another image</button>
-                                </li>
-                                <li>
-                                    <a href={`/admin/images/${this.props.value}/`} className="button edit-link button-small button-secondary" target="_blank">Edit this image</a>
-                                </li>
-                            </ul>
+                            <div className="preview-image">
+                                <img alt="Wagtail collects insects by Margrit" className="show-transparency" src={image} height="102" width="165" />
+                            </div>
+                            <Actions type="image" value={this.props.value} />
                         </div>
                         <div className="unchosen">
                             <button type="button" className="button action-choose button-small button-secondary">Choose an image</button>
