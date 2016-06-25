@@ -6,9 +6,11 @@ import configureStore from './store/configureStore';
 
 export function init(element, schema, minNum=null, maxNum=null) {
     const stateDefaults = {
-      blocks: [],
-      deletedItems: 0,
-    }
+        streamField: {
+          blocks: [],
+          deletedItems: 0,
+        }
+    };
     const store = configureStore(stateDefaults);
 
     // Get data
