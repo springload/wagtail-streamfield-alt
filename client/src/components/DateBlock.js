@@ -1,5 +1,6 @@
 import React from 'react';
 import FieldBlock from './FieldBlock'
+import ErrorMessage from './ErrorMessage';
 
 export default class DateBlock extends FieldBlock {
     componentDidMount() {
@@ -7,7 +8,7 @@ export default class DateBlock extends FieldBlock {
     }
 
     render() {
-        return (
+        return 
             <div className={`field date_field widget-admin_date_input fieldname-${this.props.schema.label.toLowerCase()} ${this.props.schema.classname ? this.props.schema.classname : ''}`}>
             <div className="field-content">
                 <div className="input">
@@ -21,13 +22,8 @@ export default class DateBlock extends FieldBlock {
                     />
                     <span></span>
                 </div>
-                <p className="error-message">
-                    { this.props.errors ? this.props.errors.map((error) => (
-                        <span key={`${this.props.path}-error`}>{error}</span>
-                        ))
-                     : null}
-                </p>
+                <ErrorMessage errors={this.props.errors} />
             </div>
-        </div>);
+        </div>;
     }
 }

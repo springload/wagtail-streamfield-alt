@@ -1,5 +1,6 @@
 import React from 'react';
 import FieldBlock from './FieldBlock'
+import ErrorMessage from './ErrorMessage';
 
 export default class RawHTMLBlock extends FieldBlock {
     render() {
@@ -18,12 +19,7 @@ export default class RawHTMLBlock extends FieldBlock {
                     </textarea>
                     <span></span>
                 </div>
-                <p className="error-message">
-                    { this.props.errors ? this.props.errors.map((error) => (
-                        <span key={`${this.props.path}-error`}>{error}</span>
-                        ))
-                     : null}
-                </p>
+                <ErrorMessage errors={this.props.errors} />
             </div>
         </div>;
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import FieldBlock from './FieldBlock'
+import ErrorMessage from './ErrorMessage';
 
 export default class ChoiceBlock extends FieldBlock {
     render() {
@@ -20,12 +21,7 @@ export default class ChoiceBlock extends FieldBlock {
                     </select>
                     <span></span>
                 </div>
-                <p className="error-message">
-                    { this.props.errors ? this.props.errors.map((error) => (
-                        <span key={`${this.props.path}-error`}>{error}</span>
-                        ))
-                     : null}
-                </p>
+                <ErrorMessage errors={this.props.errors} />
             </div>
         </div>;
     }

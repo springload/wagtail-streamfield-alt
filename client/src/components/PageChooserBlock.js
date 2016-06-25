@@ -1,5 +1,6 @@
 import React from 'react';
 import FieldBlock from './FieldBlock'
+import ErrorMessage from './ErrorMessage';
 
 export default class PageChooserBlock extends FieldBlock {
     componentDidMount() {
@@ -36,12 +37,7 @@ export default class PageChooserBlock extends FieldBlock {
                     onChange={e => this.setValue(e.target.value)} 
                     />
                 </div>
-                <p className="error-message">
-                    { this.props.errors ? this.props.errors.map((error) => (
-                        <span key={`${this.props.path}-error`}>{error}</span>
-                        ))
-                     : null}
-                </p>
+                <ErrorMessage errors={this.props.errors} />
             </div>
         </div>
     }
