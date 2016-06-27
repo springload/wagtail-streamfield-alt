@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 import IntelligentStreamBlock from './containers/IntelligentStreamBlock';
 import configureStore from './store/configureStore';
 
+import {BLOCK_TYPES_REGISTRY} from './config';
+
+
 export function init(element, schema, minNum=null, maxNum=null) {
     const stateDefaults = {
         streamField: {
@@ -19,7 +22,7 @@ export function init(element, schema, minNum=null, maxNum=null) {
 
     render(
         <Provider store={ store }>
-            <IntelligentStreamBlock initBlocks={data} schema={schema} minNum={minNum} maxNum={maxNum} path="body" />
+            <IntelligentStreamBlock types={BLOCK_TYPES_REGISTRY} initBlocks={data} schema={schema} minNum={minNum} maxNum={maxNum} path="body" />
         </Provider>,
         element.querySelector('div.streamfield-alt-ui')
     );

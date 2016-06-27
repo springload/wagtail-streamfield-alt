@@ -93,7 +93,7 @@ class BaseStreamFieldPanel(BaseFieldPanel):
         return json.dumps(get_block_schema(cls.block_def))
 
 
-class StreamFieldPanel(object):
+class StreamFieldPanel(BaseStreamFieldPanel):
     def __init__(self, field_name, min_num=None, max_num=None):
         self.field_name = field_name
         self.min_num = min_num

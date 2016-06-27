@@ -1,20 +1,23 @@
 import React from 'react';
 import IntelligentStreamMenu from '../containers/IntelligentStreamMenu';
-import { BLOCK_TYPES_REGISTRY } from '../config';
+// import { BLOCK_TYPES_REGISTRY } from '../config';
 
 export default class StreamChild extends React.Component {
     constructor(props) {
         super(props);
+        this.renderBlock = this.renderBlock.bind(this);
     }
 
     renderBlock(value, schema, path, errors, preview) {
-        const Component = BLOCK_TYPES_REGISTRY[schema.type];
-        return <Component 
-            value={value} 
-            schema={schema} 
-            path={`${path}-value`} 
-            errors={errors} 
+        const Component = this.props.types[schema.type];
+        console.log('StreamChild', schema, Component);
+        return <Component
+            value={value}
+            schema={schema}
+            path={`${path}-value`}
+            errors={errors}
             preview={preview}
+            types={this.props.types}
         />;
     }
 
@@ -24,14 +27,16 @@ export default class StreamChild extends React.Component {
         const isDeleted = this.props.isDeleted ? this.props.isDeleted : '';
         const actionButtons = [];
 
+        console.log(this.props);
+
         if (!this.props.isFirst) {
             actionButtons.push(
-                <button 
-                key="moveup" 
-                type="button" 
-                id={`${this.props.path}-moveup`} 
-                title="Move up" 
-                className="button icon text-replace icon-order-up" 
+                <button
+                key="moveup"
+                type="button"
+                id={`${this.props.path}-moveup`}
+                title="Move up"
+                className="button icon text-replace icon-order-up"
                 onClick={(evt) => this.props.moveChildBlock(intIndex, intIndex-1)}
                 >
                     Move up
@@ -41,12 +46,12 @@ export default class StreamChild extends React.Component {
 
         if (!this.props.isLast) {
             actionButtons.push(
-                <button 
-                key="movedown" 
-                type="button" 
-                id={`${this.props.path}-movedown`} 
-                title="Move down" 
-                className="button icon text-replace icon-order-down" 
+                <button
+                key="movedown"
+                type="button"
+                id={`${this.props.path}-movedown`}
+                title="Move down"
+                className="button icon text-replace icon-order-down"
                 onClick={(evt) => this.props.moveChildBlock(intIndex, intIndex+1)}
                 >
                     Move down
@@ -55,12 +60,12 @@ export default class StreamChild extends React.Component {
         }
 
         actionButtons.push(
-            <button 
-            key="delete" 
-            type="button" 
-            id={`${this.props.path}-delete`} 
-            title="Delete" 
-            className="button icon text-replace hover-no icon-bin" 
+            <button
+            key="delete"
+            type="button"
+            id={`${this.props.path}-delete`}
+            title="Delete"
+            className="button icon text-replace hover-no icon-bin"
             onClick={(evt) => this.props.deleteChildBlock(intIndex, this.props.deletedItems)}
             >
                 Delete
@@ -83,7 +88,8 @@ export default class StreamChild extends React.Component {
                     this.props.schema,
                     this.props.path,
                     this.props.errors,
-                    this.props.preview
+                    this.props.preview,
+                    this.props.types
                 )}
             </div>
             { ((this.props.streamFieldValue.length - this.props.deletedItems) < this.props.maxNum) ? (

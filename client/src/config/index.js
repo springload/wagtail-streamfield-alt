@@ -14,6 +14,7 @@ import RawHTMLBlock from '../components/RawHTMLBlock';
 import RichTextBlock from '../components/RichTextBlock';
 import ImageChooserBlock from '../components/ImageChooserBlock';
 import ChoiceBlock from '../components/ChoiceBlock';
+import ListBlock from '../components/ListBlock';
 
 
 export const BLOCK_TYPES_REGISTRY = {
@@ -30,6 +31,7 @@ export const BLOCK_TYPES_REGISTRY = {
     'wagtail.core.DateBlock': DateBlock,
     'wagtail.core.DateTimeBlock': DateTimeBlock,
     'wagtail.core.TimeBlock': TimeBlock,
+    'wagtail.core.ListBlock': ListBlock,
     'wagtail.core.PageChooserBlock': PageChooserBlock,
     'wagtail.wagtaildocs.DocumentChooserBlock': DocumentChooserBlock,
     'wagtail.wagtailsnippets.SnippetChooserBlock': SnippetChooserBlock,

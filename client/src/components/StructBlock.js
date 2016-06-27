@@ -1,9 +1,16 @@
 import React from 'react'
-import { BLOCK_TYPES_REGISTRY } from '../config';
+// import { BLOCK_TYPES_REGISTRY } from '../config';
 
 export default class StructBlock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.renderBlock = this.renderBlock.bind(this);
+    }
+
     renderBlock(value, schema, path, errors, preview) {
-        const Component = BLOCK_TYPES_REGISTRY[schema.type];
+        const Component = this.props.types[schema.type];
+        console.log(Component, schema, schema.type, this.props.types);
+
         return <Component
             value={value}
             schema={schema}

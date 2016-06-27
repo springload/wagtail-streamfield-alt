@@ -7,6 +7,7 @@ import IntelligentStreamMenu from '../containers/IntelligentStreamMenu';
 export default class StreamBlock extends React.Component {
     constructor(props) {
         super(props);
+        this.shouldShowStreamMenu = this.shouldShowStreamMenu.bind(this);
     }
 
     componentDidMount() {
@@ -15,20 +16,35 @@ export default class StreamBlock extends React.Component {
         }
     }
 
+    shouldShowStreamMenu(childBlocks) {
+        const {maxNum, deletedItems} = this.props;
+
+        if (maxNum !== null && typeof(maxNum) !== 'undefined') {
+            return ((childBlocks.length - deletedItems) < maxNum)
+        }
+
+        return true;
+    }
+
     render() {
+        const {
+            path,
+            deletedItems,
+            blocks,
+            maxNum,
+        } = this.props;
+
+        let initBlocks = this.props.initBlocks ? this.props.initBlocks : [];
+
         let childBlocks = [];
-        for (let id in this.props.blocks) {
-            const path = `${this.props.path}-${id}`;
-            const uuid = this.props.blocks[id].uuid;
-            const pathValue = `${this.props.path}-${id}-value`;
-            const type = this.props.blocks[id].type;
-            const value = this.props.blocks[id].value;
-            const preview = this.props.blocks[id].preview;
-            const errors = this.props.blocks[id].errors;
+        for (let id in blocks) {
+            const blockValue = blocks[id];
+            const {uuid, type, value, preview, errors, isDeleted} = blockValue;
+            const path = `${path}-${id}`;
+            const pathValue = `${path}-${id}-value`;
             const schema = this.props.schema.child_blocks[type];
-            const isDeleted = this.props.blocks[id].isDeleted;
             const isFirst = id == 0 && !isDeleted;
-            const isLast = id == (this.props.blocks.length - (this.props.deletedItems + 1));
+            const isLast = id == (blocks.length - (deletedItems + 1));
 
             childBlocks.push(<IntelligentStreamChild
                 key={uuid}
@@ -42,30 +58,33 @@ export default class StreamBlock extends React.Component {
                 isFirst={isFirst}
                 isLast={isLast}
                 isDeleted={isDeleted}
-                streamFieldValue={this.props.blocks}
-                maxNum={this.props.maxNum}
+                streamFieldValue={blocks}
+                maxNum={maxNum}
                 preview={preview}
+                types={this.props.types}
             />);
         }
+
+        const shouldShowStreamMenu = this.shouldShowStreamMenu(childBlocks);
 
         return <div className="field block_field block_widget">
             <div className="field-content">
                 <div className="input">
                     <div className="sequence-container sequence-type-stream">
-                        <input 
-                        type="hidden" 
-                        name="body-count" 
-                        id="body-count" 
-                        value={this.props.blocks ? this.props.blocks.length : this.props.initBlocks.length} 
+                        <input
+                        type="hidden"
+                        name="body-count"
+                        id="body-count"
+                        value={blocks ? blocks.length : initBlocks.length}
                         />
-                        
-                        { ((childBlocks.length - this.props.deletedItems) < this.props.maxNum) ? (
+
+                        {shouldShowStreamMenu ? (
                             <IntelligentStreamMenu
-                                id={`${this.props.path}-prependmenu`}
+                                id={`${path}-prependmenu`}
                                 index={0}
                                 schema={this.props.schema}
                             />
-                        ) : null }
+                        ) : null}
 
                         <div className="sequence-container-inner">
                             <ul id="body-list" className="sequence">
